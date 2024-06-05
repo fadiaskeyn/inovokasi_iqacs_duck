@@ -11,12 +11,13 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   void initState() {
-    
-
     super.initState();
+    String user = 'test';
   }
 
-  login() {}
+  Future<void> toDashboard() async {
+    Navigator.pushNamedAndRemoveUntil(context, '/dashboard', (route) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +105,9 @@ class _SignInPageState extends State<SignInPage> {
               width: double.infinity,
               height: 45,
               child: TextButton(
-                onPressed: login(),
+                onPressed: () async {
+                  toDashboard();
+                },
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.zero,
                   backgroundColor: greenColor,

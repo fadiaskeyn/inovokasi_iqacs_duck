@@ -32,27 +32,28 @@ TextStyle filterTextStyle = GoogleFonts.inter(
   color: blackColor,
 );
 
-TextStyle blackTextStyle = GoogleFonts.mulish(
+TextStyle blackTextStyle = GoogleFonts.inter(
   color: blackColor,
 );
 
-TextStyle greyTextStyle = GoogleFonts.mulish(
+TextStyle greyTextStyle = GoogleFonts.inter(
   color: dark20color,
 );
 
-TextStyle whitekTextStyle = GoogleFonts.mulish(
+TextStyle whitekTextStyle = GoogleFonts.inter(
   color: whiteColor,
+  
 );
 
-TextStyle bluetogreenTextStyle = GoogleFonts.mulish(
+TextStyle bluetogreenTextStyle = GoogleFonts.inter(
   color: bluetogreenColor,
 );
 
-TextStyle blueTextStyle = GoogleFonts.mulish(
+TextStyle blueTextStyle = GoogleFonts.inter(
   color: blueColor,
 );
 
-TextStyle greenTextStyle = GoogleFonts.mulish(
+TextStyle greenTextStyle = GoogleFonts.inter(
   color: greenColor,
 );
 
