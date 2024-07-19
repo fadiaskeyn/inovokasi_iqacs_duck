@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_gmf/Screens/Settings_page.dart';
 import 'package:mobile_gmf/Screens/dashboard_page.dart';
+import 'package:mobile_gmf/Screens/home_page.dart';
 import 'package:mobile_gmf/Screens/signIn_page.dart';
 import 'package:mobile_gmf/Screens/splash_page.dart';
 import 'package:mobile_gmf/Theme.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/signin': (context) => const SignInPage(),
         '/dashboard': (context) => const DashboardPage(),
         '/settings': (context) => const settingsPage(),
+        '/pantau': (context) => HomePage(),
       },
     );
   }

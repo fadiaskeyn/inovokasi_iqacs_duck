@@ -14,11 +14,18 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  double dioksida = 0.0;
-  double humidity = 0.0;
-  double temperature = 0.0;
-  double metana = 0.0;
-  double amonia = 0.0;
+  Future<void> settings() async {
+    Navigator.pushNamedAndRemoveUntil(context, '/settings', (route) => false);
+  }
+
+  double ammonia = 1.0;
+  double methane = 1.0;
+  double co2 = 1.0;
+  double n20 = 1.0;
+
+  Future<void> toPantau() async {
+    Navigator.pushNamedAndRemoveUntil(context, '/pantau', (route) => false);
+  }
 
   @override
   void initState() {
@@ -26,7 +33,7 @@ class _DashboardPageState extends State<DashboardPage> {
     runfetchGasReadings();
 
     // Schedule fetching data every 10 minutes
-    Timer.periodic(Duration(minutes: 2), (Timer timer) {
+    Timer.periodic(Duration(minutes: 10), (Timer timer) {
       rerunfetchGasReadings();
     });
   }
@@ -42,22 +49,15 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Future<void> fetchGasReadings() async {
     try {
-      ApiResponse apiResponse = await ApiService().fetchGasReadings();
-      setState(() {
-        dioksida = apiResponse.dioksida.isNotEmpty
-            ? apiResponse.dioksida.last.nilai
-            : 0.0;
-        humidity = apiResponse.humidity.isNotEmpty
-            ? apiResponse.humidity.last.nilai
-            : 0.0;
-        temperature = apiResponse.temperature.isNotEmpty
-            ? apiResponse.temperature.last.nilai
-            : 0.0;
-        metana =
-            apiResponse.metana.isNotEmpty ? apiResponse.metana.last.nilai : 0.0;
-        amonia =
-            apiResponse.amonia.isNotEmpty ? apiResponse.amonia.last.nilai : 0.0;
-      });
+      List<GasReading> readings = await ApiService().fetchGasReadings();
+      if (readings.isNotEmpty) {
+        setState(() {
+          ammonia = readings.last.ammonia;
+          methane = readings.last.methane;
+          co2 = readings.last.carbonDioxide;
+          n20 = readings.last.nitrousOxide;
+        });
+      }
     } catch (e) {
       print('Failed to fetch gas readings: $e');
     }
@@ -79,6 +79,7 @@ class _DashboardPageState extends State<DashboardPage> {
               Stack(
                 children: [
                   Container(
+                    // margin: EdgeInsets.only(bottom: 20.0),
                     alignment: Alignment.topCenter,
                     height: 200.0,
                     decoration: BoxDecoration(color: greenColor),
@@ -124,6 +125,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       Container(
                         height: 52,
                         width: 52,
+                        // color: whiteColor,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
                                 image:
@@ -131,8 +133,8 @@ class _DashboardPageState extends State<DashboardPage> {
                         child: InkWell(onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => settingsPage()));
+                              new MaterialPageRoute(
+                                  builder: (context) => new settingsPage()));
                         }),
                       ),
                     ],
@@ -166,64 +168,64 @@ class _DashboardPageState extends State<DashboardPage> {
                     height: 100,
                   ),
                   Container(
-                    width: 400.0,
-                    padding: EdgeInsets.only(
-                        top: 100, left: 0, right: 0, bottom: 500),
-                    child: Container(
-                      width: double.infinity,
-                      margin: EdgeInsets.all(20),
-                      height: 164,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: greyColor,
+                      //color: Colors.white,
+                      width: 400.0,
+                      padding: EdgeInsets.only(
+                          top: 100, left: 0, right: 0, bottom: 500),
+                      child: Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.all(20),
+                        height: 164,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: greyColor,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                          color: whiteColor,
                         ),
-                        borderRadius: BorderRadius.circular(10),
-                        color: whiteColor,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(
-                                width: 40,
-                              ),
-                              Text(
-                                '0',
-                                style: blackTextStyle.copyWith(
-                                    fontWeight: bold, fontSize: 28),
-                              ),
-                              Column(
-                                children: [
-                                  const SizedBox(
-                                    width: 200,
-                                  ),
-                                  Text(
-                                    'Normal',
-                                    style: greenTextStyle.copyWith(
-                                        fontSize: 28, fontWeight: bold),
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      const SizedBox(
-                                        height: 50,
-                                      ),
-                                      Text('Diperbarui 10:00, 26 Juni 2024')
-                                    ],
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 50,
+                            ),
+                            Row(
+                              children: [
+                                const SizedBox(
+                                  width: 40,
+                                ),
+                                Text(
+                                  '0.3',
+                                  style: blackTextStyle.copyWith(
+                                      fontWeight: bold, fontSize: 28),
+                                ),
+                                Column(
+                                  children: [
+                                    const SizedBox(
+                                      width: 200,
+                                    ),
+                                    Text(
+                                      'Normal',
+                                      style: greenTextStyle.copyWith(
+                                          fontSize: 28, fontWeight: bold),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        const SizedBox(
+                                          height: 50,
+                                        ),
+                                        Text('Diperbarui 10:00, 26 Juni 2024')
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      )),
                   //start methane and n20 section
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -290,7 +292,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       width: 14,
                                     ),
                                     Text(
-                                      '$metana',
+                                      '$methane',
                                       style: blackTextStyle.copyWith(
                                           fontSize: 33, fontWeight: bold),
                                     ),
@@ -334,7 +336,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       width: 10,
                                     ),
                                     Text(
-                                      'Ammonia',
+                                      'Dinitrogen\nOksida',
                                       style: blackTextStyle.copyWith(
                                           fontWeight: regular),
                                     ),
@@ -342,7 +344,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       width: 30,
                                     ),
                                     Text(
-                                      'NH3',
+                                      'N2O',
                                       style: blackTextStyle.copyWith(
                                           fontWeight: bold),
                                     )
@@ -357,7 +359,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       width: 14,
                                     ),
                                     Text(
-                                      '$amonia',
+                                      '$n20',
                                       style: blackTextStyle.copyWith(
                                           fontSize: 33, fontWeight: bold),
                                     ),
@@ -433,7 +435,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       width: 14,
                                     ),
                                     Text(
-                                      '$dioksida',
+                                      '$co2',
                                       style: blackTextStyle.copyWith(
                                           fontSize: 33, fontWeight: bold),
                                     ),
@@ -477,7 +479,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       width: 10,
                                     ),
                                     Text(
-                                      'Kelembapan',
+                                      'Gas Amonia',
                                       style: blackTextStyle.copyWith(
                                           fontWeight: regular),
                                     ),
@@ -485,7 +487,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       width: 18,
                                     ),
                                     Text(
-                                      'HR',
+                                      'NH3',
                                       style: blackTextStyle.copyWith(
                                           fontWeight: bold),
                                     ),
@@ -512,7 +514,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       width: 14,
                                     ),
                                     Text(
-                                      '$humidity',
+                                      '$ammonia',
                                       style: blackTextStyle.copyWith(
                                           fontSize: 33, fontWeight: bold),
                                     ),
@@ -520,7 +522,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       width: 10,
                                     ),
                                     Text(
-                                      '%',
+                                      'ppm',
                                       style: blackTextStyle.copyWith(
                                           fontSize: 14, fontWeight: light),
                                     )
@@ -529,90 +531,9 @@ class _DashboardPageState extends State<DashboardPage> {
                               ],
                             ),
                           )),
-                          
                     ],
                   ),
                   //end co2 and nh3 section
-                  //start temperature section
-                 Container(
-                      width: 169.0,
-                      padding: EdgeInsets.only(
-                          top: 590, left: 10, right: 0, bottom: 500),
-                      child: Container(
-                        width: double.infinity,
-                        margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                        height: 130,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: softorangeColor.withOpacity(0.25),
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                          color: softorangeColor.withOpacity(0.25),
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  'Suhu',
-                                  style: blackTextStyle.copyWith(
-                                      fontWeight: regular),
-                                ),
-                                const SizedBox(
-                                  width: 18,
-                                ),
-                                Text(
-                                  '',
-                                  style:
-                                      blackTextStyle.copyWith(fontWeight: bold),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              height: 40,
-                              width: 40,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage('assets/iconamonia.png')),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                const SizedBox(
-                                  width: 14,
-                                ),
-                                Text(
-                                  '$temperature',
-                                  style: blackTextStyle.copyWith(
-                                      fontSize: 33, fontWeight: bold),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  'C',
-                                  style: blackTextStyle.copyWith(
-                                      fontSize: 14, fontWeight: light),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      )),
-                  //end temperature section
                 ],
               ),
             ],
