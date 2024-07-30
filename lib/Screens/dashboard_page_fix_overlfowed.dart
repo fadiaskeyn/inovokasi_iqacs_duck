@@ -194,12 +194,9 @@ class _DashboardPageState extends State<DashboardPage> {
                                       Text('$temperature',
                                           style: blackTextStyle.copyWith(
                                               fontSize: 33, fontWeight: bold)),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
                                       Text('C',
                                           style: blackTextStyle.copyWith(
-                                              fontSize: 33, fontWeight: bold)),
+                                              fontSize: 14, fontWeight: light)),
                                     ],
                                   ),
                                 ],
@@ -215,148 +212,128 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                  Row(
                     children: [
-                      buildGasCard(
-                        'Metana',
-                        'CH4',
-                        metana,
-                        'assets/iconmetana.png',
-                        Color.fromRGBO(242, 207, 207, 1),
+                      Expanded(
+                        child: Card(
+                          elevation: 0.2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                                color: pinkColor.withOpacity(0.2), width: 1),
+                          ),
+                          color: pinkColor.withOpacity(0.2),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                Image.asset('assets/iconamonia.png',
+                                    height: 40, width: 40),
+                                SizedBox(height: 14),
+                                Text('Metana',
+                                    style: blackTextStyle.copyWith(
+                                        fontWeight: regular)),
+                                Text('$metana',
+                                    style: blackTextStyle.copyWith(
+                                        fontWeight: bold)),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      buildGasCard2(
-                        'Kelembapan',
-                        'HR',
-                        humidity,
-                        'assets/iconamonia.png',
-                        Color.fromRGBO(197, 237, 203, 1),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                                color: greenColor.withOpacity(0.25), width: 1),
+                          ),
+                          color: greenColor.withOpacity(0.25),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                Image.asset('assets/iconamonia.png',
+                                    height: 40, width: 40),
+                                SizedBox(height: 14),
+                                Text('Amonia',
+                                    style: blackTextStyle.copyWith(
+                                        fontWeight: regular)),
+                                Text('$amonia',
+                                    style: blackTextStyle.copyWith(
+                                        fontWeight: bold)),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      buildGasCard3(
-                        'Karbon\nDioksida',
-                        'CO2',
-                        dioksida,
-                        'assets/iconamonia.png',
-                        Color.fromRGBO(198, 225, 225, 1),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                                color: greenColor.withOpacity(0.25), width: 1),
+                          ),
+                          color: greenColor.withOpacity(0.25),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                Image.asset('assets/iconamonia.png',
+                                    height: 40, width: 40),
+                                SizedBox(height: 14),
+                                Text('Dioksida',
+                                    style: blackTextStyle.copyWith(
+                                        fontWeight: regular)),
+                                Text('$dioksida',
+                                    style: blackTextStyle.copyWith(
+                                        fontWeight: bold)),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      buildGasCard(
-                        'Amonia',
-                        'NH3',
-                        amonia,
-                        'assets/iconamonia.png',
-                        Color.fromRGBO(247, 215, 187, 1),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                                color: blueColor.withOpacity(0.25), width: 1),
+                          ),
+                          color: blueColor.withOpacity(0.25),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                Image.asset('assets/iconamonia.png',
+                                    height: 40, width: 40),
+                                SizedBox(height: 14),
+                                Text('Kelembapan',
+                                    style: blackTextStyle.copyWith(
+                                        fontWeight: regular)),
+                                Text('$humidity',
+                                    style: blackTextStyle.copyWith(
+                                        fontWeight: bold)),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildGasCard(String title, String kode, double value, String asset, Color color) {
-    return Card(
-      elevation: 0.1,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(color: color, width: 0.1),
-      ),
-      color: color,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-             Row(
-              children: [
-                Text(title,
-                    style: blackTextStyle.copyWith(fontWeight: regular)),
-                const SizedBox(
-                  width: 47,
-                ),
-                Text(kode, style: blackTextStyle.copyWith(fontWeight: bold)),
-              ],
-            ),
-            SizedBox(height: 10),
-            Image.asset(asset, height: 56, width: 56),
-            SizedBox(height: 10),
-            Text('$value ppm', style: blackTextStyle.copyWith(fontWeight: light)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildGasCard2(String title, String kode, double value, String asset, Color color) {
-    return Card(
-      elevation: 0.1,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(color: color, width: 0.1),
-      ),
-      color: color,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(title,
-                    style: blackTextStyle.copyWith(fontWeight: regular)),
-                const SizedBox(
-                  width: 25,
-                ),
-                Text(kode,
-                    style: blackTextStyle.copyWith(fontWeight: bold)),
-              ],
-            ),
-            SizedBox(height: 10),
-            Image.asset(asset, height: 56, width: 56),
-            SizedBox(height: 10),
-            Text('$value %',
-                style: blackTextStyle.copyWith(fontWeight: light)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildGasCard3(
-      String title, String kode, double value, String asset, Color color) {
-    return Card(
-      elevation: 0.1,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(color: color, width: 0.1),
-      ),
-      color: color,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(title,
-                    style: blackTextStyle.copyWith(fontWeight: regular)),
-                const SizedBox(
-                  width: 40,
-                ),
-                Text(kode, style: blackTextStyle.copyWith(fontWeight: bold)),
-              ],
-            ),
-            SizedBox(height: 10),
-            Image.asset(asset, height: 56, width: 56),
-            SizedBox(height: 10),
-            Text('$value ppm', style: blackTextStyle.copyWith(fontWeight: light)),
           ],
         ),
       ),

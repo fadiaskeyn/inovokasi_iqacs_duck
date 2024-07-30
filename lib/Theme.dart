@@ -27,7 +27,7 @@ Color succes40Color = const Color(0xff4C74EE);
 Color succes95Color = const Color(0xffD5E1FE);
 Color warning40Color = const Color(0xffDDA700);
 Color warning95Color = const Color(0xffFFF4D8);
-Color pinkColor = const Color(0xffe95b5b);
+Color pinkColor = Color.fromARGB(255, 233, 126, 126);
 Color lightgreenColor = const Color(0xff35d44b);
 Color lightblueColor = const Color(0xff38a3a5);
 Color softorangeColor = const Color(0xfffd7e0b);
@@ -38,6 +38,11 @@ TextStyle filterTextStyle = GoogleFonts.inter(
 TextStyle blackTextStyle = GoogleFonts.inter(
   color: blackColor,
 );
+
+TextStyle redTextStyle = GoogleFonts.inter(
+  color: danger40Color,
+);
+
 
 TextStyle greyTextStyle = GoogleFonts.inter(
   color: dark20color,

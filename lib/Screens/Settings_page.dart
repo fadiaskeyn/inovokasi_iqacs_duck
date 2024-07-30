@@ -14,9 +14,9 @@ class _settingsPageState extends State<settingsPage> {
     return Scaffold(
         backgroundColor: whiteColor,
         appBar: AppBar(
-          backgroundColor: greenColor,
-          title: Text('Informasi Status Kualitas Udara',
-              style: whitekTextStyle.copyWith(
+          backgroundColor: whiteColor,
+          title: Text('Pengaturan Lainnya',
+              style: blackTextStyle.copyWith(
                   fontSize: 16, fontWeight: FontWeight.bold)),
           leading: IconButton(
             onPressed: () {
@@ -24,27 +24,247 @@ class _settingsPageState extends State<settingsPage> {
             },
             icon: Icon(
               Icons.arrow_back,
-              color: whiteColor,
+              color: blackColor,
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
+        body: Container(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Container(
+                    height: 34,
+                    width: 100,
+                    // color: greenColor,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: greenColor,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      color: greenColor,
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          'Akun', 
+                          style: whitekTextStyle.copyWith(fontSize: 11),
+                          textAlign: TextAlign.center,),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Container(
+                    height: 34,
+                    width: 100,
+                    // color: greenColor,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: greyColor.withOpacity(0.25),
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      color: whiteColor,
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          'Tentang Aplikasi',
+                          style: greyTextStyle.copyWith(fontSize: 11),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                  
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                    width: 340.0,
+                    child: Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.all(10),
+                        height: 149,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: greyColor,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                          color: whiteColor.withOpacity(0.25),
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 4,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 76,
+                              width: 76,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/profile_image2.png')),
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Edy Atthoillah',
+                                  style: blackTextStyle.copyWith(
+                                      fontSize: 13, fontWeight: bold),
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  'Karyawan',
+                                  style: blackTextStyle.copyWith(
+                                      fontSize: 12, fontWeight: light),
+                                )
+                              ],
+                            ),
+                          ],
+                        )),
+                        
+                  ),
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                height: 40,
+                width: 340,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: greyColor.withOpacity(0.25),
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                  color: whiteColor,
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 20,
+                      width: 20,
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      '+6285257315135', style: greyTextStyle.copyWith(fontSize: 11, fontWeight: light),
+                    )
+                  ],
+                ),
                 
-                Text('0.0 - 0.33 Normal\nKualitas udara berada dalam kondisi yang baik. Tingkat polusi udara sangat rendah dan tidak ada atau sangat sedikit partikel berbahaya yang terdeteksi. Risiko terhadap kesehatan sangat minimal, baik untuk mahluk hidup.'),
-                SizedBox(
-                  height: 10,
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                height: 40,
+                width: 340,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: greyColor.withOpacity(0.25),
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                  color: whiteColor,
                 ),
-                Text('0.34 - 0.66 Cukup\nKualitas udara berada pada tingkat sedang. Terdapat peningkatan jumlah partikel polusi di udara, namun masih dalam batas toleransi untuk kebanyakan orang. Dianjurkan untuk membatasi aktivitas fisik yang berat di luar ruangan.'),
-                SizedBox(
-                  height: 10,
+                child: Row(
+                  children: [
+                    Container(
+                      height: 20,
+                      width: 20,
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      'edy@gmail.com', style: greyTextStyle.copyWith(fontSize: 11, fontWeight: light),
+                    )
+                  ],
                 ),
-                Text(
-                    '0.67 - 1.0 Bahaya\nKualitas udara buruk dan berbahaya. Tingkat polusi udara sangat tinggi, mengandung partikel dan zat berbahaya yang dapat menyebabkan masalah kesehatan serius. Paparan terhadap kondisi ini dapat menyebabkan efek kesehatan yang serius.')
-              ],
-            ),
+                
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                height: 40,
+                width: 340,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: greyColor.withOpacity(0.25),
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                  color: whiteColor,
+                ),
+                child: Row(
+                  children: [
+                    
+                    Container(
+                      height: 20,
+                      width: 20,
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      'Ganti Password', style: greyTextStyle.copyWith(fontSize: 11, fontWeight: light),
+                    )
+                  ],
+                ),
+          
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                height: 40,
+                width: 340,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: greyColor.withOpacity(0.25),
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                  color: whiteColor,
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 20,
+                      width: 20,
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      'Logout', style: redTextStyle.copyWith(fontSize: 11, fontWeight: light),
+                    )
+                  ],
+                ),
+                
+              ),
+            ],
           ),
         )
         );
