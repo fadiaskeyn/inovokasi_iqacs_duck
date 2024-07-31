@@ -164,93 +164,139 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             Expanded(
-              child: ListView(
-                padding: EdgeInsets.all(20),
+              child: PageView(
                 children: [
-                  Card(
-                    elevation: 3,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(color: greyColor, width: 1),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset('assets/iconamonia.png',
-                                  height: 40, width: 40),
-                              SizedBox(width: 14),
-                              Column(
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          child: Card(
+                            elevation: 3,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(color: greyColor, width: 1),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Suhu',
-                                      style: blackTextStyle.copyWith(
-                                          fontWeight: regular)),
                                   Row(
                                     children: [
-                                      Text('$temperature',
-                                          style: blackTextStyle.copyWith(
-                                              fontSize: 33, fontWeight: bold)),
+                                      
+                                      SizedBox(width: 1),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Suhu',
+                                              style: blackTextStyle.copyWith(
+                                                  fontWeight: regular)),
+                                          Row(
+                                            children: [
+                                              Text('$temperature',
+                                                  style: blackTextStyle.copyWith(
+                                                      fontSize: 33,
+                                                      fontWeight: bold)),
                                               const SizedBox(
                                                 width: 5,
                                               ),
-                                      Text('C',
-                                          style: blackTextStyle.copyWith(
-                                              fontSize: 33, fontWeight: bold)),
+                                              Text('C',
+                                                  style: blackTextStyle.copyWith(
+                                                      fontSize: 33,
+                                                      fontWeight: bold)),
+                                              const SizedBox(width: 80,),
+                                              Image.asset(
+                                                  'assets/iconamonia.png',
+                                                  height: 60,
+                                                  width: 60),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      const SizedBox(
+                                        width: 2,
+                                      ),
+                                      Text('Diperbarui $lastUpdated',
+                                          style: blackTextStyle.copyWith(
+                                              fontWeight: light, fontSize: 10)),
+                                    ],
+                                  )
+                                  
                                 ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: GridView.count(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 4,
+                            mainAxisSpacing: 4,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            children: [
+                              buildGasCard(
+                                'Metana',
+                                'CH4',
+                                metana,
+                                'assets/iconmetana.png',
+                                Color.fromRGBO(242, 207, 207, 1),
+                              ),
+                              buildGasCard2(
+                                'Kelembapan',
+                                'HR',
+                                humidity,
+                                'assets/iconamonia.png',
+                                Color.fromRGBO(197, 237, 203, 1),
+                              ),
+                              buildGasCard3(
+                                'Karbon\nDioksida',
+                                'CO2',
+                                dioksida,
+                                'assets/iconamonia.png',
+                                Color.fromRGBO(198, 225, 225, 1),
+                              ),
+                              buildGasCard(
+                                'Amonia',
+                                'NH3',
+                                amonia,
+                                'assets/iconamonia.png',
+                                Color.fromRGBO(247, 215, 187, 1),
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
-                          Text('Diperbarui $lastUpdated',
-                              style:
-                                  blackTextStyle.copyWith(fontWeight: light)),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 20),
-                  GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [
-                      buildGasCard(
-                        'Metana',
-                        'CH4',
-                        metana,
-                        'assets/iconmetana.png',
-                        Color.fromRGBO(242, 207, 207, 1),
+                  // Placeholder for the chart page
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Card(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(color: greyColor, width: 1),
                       ),
-                      buildGasCard2(
-                        'Kelembapan',
-                        'HR',
-                        humidity,
-                        'assets/iconamonia.png',
-                        Color.fromRGBO(197, 237, 203, 1),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Center(
+                          child: Text(
+                            'Tampilan Chart',
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
-                      buildGasCard3(
-                        'Karbon\nDioksida',
-                        'CO2',
-                        dioksida,
-                        'assets/iconamonia.png',
-                        Color.fromRGBO(198, 225, 225, 1),
-                      ),
-                      buildGasCard(
-                        'Amonia',
-                        'NH3',
-                        amonia,
-                        'assets/iconamonia.png',
-                        Color.fromRGBO(247, 215, 187, 1),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
@@ -261,7 +307,8 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget buildGasCard(String title, String kode, double value, String asset, Color color) {
+  Widget buildGasCard(
+      String title, String kode, double value, String asset, Color color) {
     return Card(
       elevation: 0.1,
       shape: RoundedRectangleBorder(
@@ -274,7 +321,7 @@ class _DashboardPageState extends State<DashboardPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-             Row(
+            Row(
               children: [
                 Text(title,
                     style: blackTextStyle.copyWith(fontWeight: regular)),
@@ -286,15 +333,30 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             SizedBox(height: 10),
             Image.asset(asset, height: 56, width: 56),
-            SizedBox(height: 10),
-            Text('$value ppm', style: blackTextStyle.copyWith(fontWeight: light)),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                const SizedBox(
+                  width: 30,
+                ),
+                 Text('$value',
+                    style: blackTextStyle.copyWith(fontWeight: bold)),
+                  const SizedBox(
+                  width: 5,
+                ),
+                Text('ppm',
+                    style: blackTextStyle.copyWith(fontWeight: light)),
+              ],
+            )
+           
           ],
         ),
       ),
     );
   }
 
-  Widget buildGasCard2(String title, String kode, double value, String asset, Color color) {
+  Widget buildGasCard2(
+      String title, String kode, double value, String asset, Color color) {
     return Card(
       elevation: 0.1,
       shape: RoundedRectangleBorder(
@@ -314,15 +376,25 @@ class _DashboardPageState extends State<DashboardPage> {
                 const SizedBox(
                   width: 25,
                 ),
-                Text(kode,
-                    style: blackTextStyle.copyWith(fontWeight: bold)),
+                Text(kode, style: blackTextStyle.copyWith(fontWeight: bold)),
               ],
             ),
             SizedBox(height: 10),
             Image.asset(asset, height: 56, width: 56),
-            SizedBox(height: 10),
-            Text('$value %',
-                style: blackTextStyle.copyWith(fontWeight: light)),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                const SizedBox(
+                  width: 44,
+                ),
+                Text('$value',
+                    style: blackTextStyle.copyWith(fontWeight: bold)),
+                    const SizedBox(
+                  width: 5,
+                ),
+                Text('%', style: blackTextStyle.copyWith(fontWeight: light)),
+              ],
+            )
           ],
         ),
       ),
@@ -356,7 +428,19 @@ class _DashboardPageState extends State<DashboardPage> {
             SizedBox(height: 10),
             Image.asset(asset, height: 56, width: 56),
             SizedBox(height: 10),
-            Text('$value ppm', style: blackTextStyle.copyWith(fontWeight: light)),
+            Row(
+                children: [
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  Text('$value',
+                      style: blackTextStyle.copyWith(fontWeight: bold)),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text('ppm', style: blackTextStyle.copyWith(fontWeight: light)),
+                ],
+              )
           ],
         ),
       ),
