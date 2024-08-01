@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_gmf/Screens/Settings_page.dart';
 import 'package:mobile_gmf/Theme.dart';
+import 'package:mobile_gmf/Widgets/chart/bar_graph.dart';
 import 'package:mobile_gmf/services/api_services.dart';
 import 'package:mobile_gmf/Models/gas_reading.dart';
 import 'dart:async';
@@ -77,6 +78,15 @@ class _DashboardPageState extends State<DashboardPage> {
     '3',
     '4',
   ];
+
+  List<double> weeklySummary = [
+    200.0, 
+    220.0, 
+    250.0, 
+    220.0, 
+    260.0, 
+    270.0, 
+    240.0];
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +194,6 @@ class _DashboardPageState extends State<DashboardPage> {
                                 children: [
                                   Row(
                                     children: [
-                                      
                                       SizedBox(width: 1),
                                       Column(
                                         crossAxisAlignment:
@@ -196,17 +205,21 @@ class _DashboardPageState extends State<DashboardPage> {
                                           Row(
                                             children: [
                                               Text('$temperature',
-                                                  style: blackTextStyle.copyWith(
-                                                      fontSize: 33,
-                                                      fontWeight: bold)),
+                                                  style:
+                                                      blackTextStyle.copyWith(
+                                                          fontSize: 33,
+                                                          fontWeight: bold)),
                                               const SizedBox(
                                                 width: 5,
                                               ),
                                               Text('C',
-                                                  style: blackTextStyle.copyWith(
-                                                      fontSize: 33,
-                                                      fontWeight: bold)),
-                                              const SizedBox(width: 80,),
+                                                  style:
+                                                      blackTextStyle.copyWith(
+                                                          fontSize: 33,
+                                                          fontWeight: bold)),
+                                              const SizedBox(
+                                                width: 80,
+                                              ),
                                               Image.asset(
                                                   'assets/iconamonia.png',
                                                   height: 60,
@@ -228,7 +241,6 @@ class _DashboardPageState extends State<DashboardPage> {
                                               fontWeight: light, fontSize: 10)),
                                     ],
                                   )
-                                  
                                 ],
                               ),
                             ),
@@ -287,13 +299,9 @@ class _DashboardPageState extends State<DashboardPage> {
                         side: BorderSide(color: greyColor, width: 1),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.fromLTRB(1, 20, 1, 6),
                         child: Center(
-                          child: Text(
-                            'Tampilan Chart',
-                            style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
-                          ),
+                          child: myBarGraph(weeklySummary: weeklySummary,)
                         ),
                       ),
                     ),
@@ -339,16 +347,14 @@ class _DashboardPageState extends State<DashboardPage> {
                 const SizedBox(
                   width: 30,
                 ),
-                 Text('$value',
+                Text('$value',
                     style: blackTextStyle.copyWith(fontWeight: bold)),
-                  const SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
-                Text('ppm',
-                    style: blackTextStyle.copyWith(fontWeight: light)),
+                Text('ppm', style: blackTextStyle.copyWith(fontWeight: light)),
               ],
             )
-           
           ],
         ),
       ),
@@ -389,7 +395,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
                 Text('$value',
                     style: blackTextStyle.copyWith(fontWeight: bold)),
-                    const SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Text('%', style: blackTextStyle.copyWith(fontWeight: light)),
@@ -429,18 +435,18 @@ class _DashboardPageState extends State<DashboardPage> {
             Image.asset(asset, height: 56, width: 56),
             SizedBox(height: 10),
             Row(
-                children: [
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  Text('$value',
-                      style: blackTextStyle.copyWith(fontWeight: bold)),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text('ppm', style: blackTextStyle.copyWith(fontWeight: light)),
-                ],
-              )
+              children: [
+                const SizedBox(
+                  width: 30,
+                ),
+                Text('$value',
+                    style: blackTextStyle.copyWith(fontWeight: bold)),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text('ppm', style: blackTextStyle.copyWith(fontWeight: light)),
+              ],
+            )
           ],
         ),
       ),
