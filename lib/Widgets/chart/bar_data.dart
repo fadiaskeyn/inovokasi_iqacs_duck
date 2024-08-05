@@ -1,43 +1,39 @@
-import 'package:mobile_gmf/Widgets/chart/individual_bar.dart';
+import 'dart:ui';
+
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:mobile_gmf/Models/average_temp.dart';
 
 class BarData {
-  final double sunAmount;
-  final double monAmount;
-  final double tueAmount;
-  final double wedAmount;
-  final double thurAmount;
-  final double friAmount;
-  final double satAmount;
+  final List<BarChartGroupData> barData = [];
 
-  BarData({
-    required this.sunAmount,
-    required this.monAmount,
-    required this.tueAmount,
-    required this.wedAmount,
-    required this.thurAmount,
-    required this.friAmount,
-    required this.satAmount,
-  });
+  BarData();
 
-  List<IndividualBar> barData = [];
+  void initializeBarData(List<HourlyTemperature> hourlyTemperatures) {
+    barData.clear();
 
-  //initialize bar data
-  void initializeBarData() {
-    barData = [
-      //sun
-      IndividualBar(x: 0, y: sunAmount),
-      //mon
-      IndividualBar(x: 1, y: monAmount),
-      //tue
-      IndividualBar(x: 2, y: tueAmount),
-      //wed
-      IndividualBar(x: 3, y: wedAmount),
-      //thur
-      IndividualBar(x: 4, y: thurAmount),
-      //fri
-      IndividualBar(x: 5, y: friAmount),
-      //sat
-      IndividualBar(x: 6, y: satAmount),
-    ];
+    for (var hourlyTemp in hourlyTemperatures) {
+      final temperature = hourlyTemp.averageTemperature;
+      print(
+          'Adding BarData: hour=${hourlyTemp.hour}, temperature=$temperature');
+
+      barData.add(
+        BarChartGroupData(
+          x: hourlyTemp.hour,
+          barRods: [
+            BarChartRodData(
+              toY: temperature,
+              color: Color.fromRGBO(221, 245, 9, 1),
+              width: 14,
+              backDrawRodData: BackgroundBarChartRodData(
+                show: true,
+                toY: 100,
+                color: Colors.grey.withOpacity(0.2),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }

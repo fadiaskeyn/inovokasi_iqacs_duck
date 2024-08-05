@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_gmf/Models/average_temp.dart';
 import 'package:mobile_gmf/Screens/Settings_page.dart';
 import 'package:mobile_gmf/Theme.dart';
 import 'package:mobile_gmf/Widgets/chart/bar_graph.dart';
 import 'package:mobile_gmf/services/api_services.dart';
+import 'package:mobile_gmf/services/api_services_temp.dart';
 import 'package:mobile_gmf/Models/gas_reading.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -22,25 +24,22 @@ class _DashboardPageState extends State<DashboardPage> {
   double metana = 0.0;
   double amonia = 0.0;
   String lastUpdated = '';
+  List<HourlyTemperature> dailySummary = [];
 
   @override
   void initState() {
     super.initState();
-    runfetchGasReadings();
+    fetchData(); // Fetch data initially
 
     // Schedule fetching data every 2 minutes
     Timer.periodic(Duration(minutes: 2), (Timer timer) {
-      rerunfetchGasReadings();
+      fetchData();
     });
   }
 
-  Future<void> rerunfetchGasReadings() async {
-    fetchGasReadings();
-    runfetchGasReadings();
-  }
-
-  Future<void> runfetchGasReadings() async {
-    fetchGasReadings();
+  Future<void> fetchData() async {
+    await fetchGasReadings();
+    await fetchDailyTemperatureSummary();
   }
 
   Future<void> fetchGasReadings() async {
@@ -68,26 +67,23 @@ class _DashboardPageState extends State<DashboardPage> {
     }
   }
 
+  Future<void> fetchDailyTemperatureSummary() async {
+    try {
+      TemperatureData temperatureData =
+          await ApiServiceTemp().fetchDailyTemperatureSummary(dropdownvalue);
+      setState(() {
+        dailySummary = temperatureData.temperatures;
+      });
+    } catch (e) {
+      print('Failed to fetch daily temperature summary: $e');
+    }
+  }
+
   // Initial Selected Value
   String dropdownvalue = '1';
 
   // List of items in our dropdown menu
-  var items = [
-    '1',
-    '2',
-    '3',
-    '4',
-  ];
-
-  List<double> weeklySummary = [
-    200.0, 
-    220.0, 
-    250.0, 
-    220.0, 
-    260.0, 
-    270.0, 
-    240.0];
-
+  var items = ['1', '2', '3', '4'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,7 +160,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           setState(() {
                             dropdownvalue = newValue!;
                             print(dropdownvalue);
-                            fetchGasReadings();
+                            fetchData();
                           });
                         },
                       ),
@@ -291,7 +287,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   // Placeholder for the chart page
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Card(
                       elevation: 3,
                       shape: RoundedRectangleBorder(
@@ -299,10 +295,30 @@ class _DashboardPageState extends State<DashboardPage> {
                         side: BorderSide(color: greyColor, width: 1),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(1, 20, 1, 6),
+                        padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
+                        child: 
+                            Center(
+                                child: MyBarGraph(
+                              dailySummary: dailySummary,
+                            )),
+                          
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Card(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(color: greyColor, width: 1),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
                         child: Center(
-                          child: myBarGraph(weeklySummary: weeklySummary,)
-                        ),
+                            child: MyBarGraph(
+                          dailySummary: dailySummary,
+                        )),
                       ),
                     ),
                   ),
