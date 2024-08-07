@@ -4,10 +4,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_gmf/Models/average_temp.dart';
 
-class BarData {
+class BarDataKelembapan {
   final List<BarChartGroupData> barData = [];
 
-  BarData();
+  BarDataKelembapan();
 
   void initializeBarData(List<HourlyTemperature> hourlyTemperatures) {
     barData.clear();
@@ -23,7 +23,7 @@ class BarData {
           barRods: [
             BarChartRodData(
               toY: temperature,
-              color: Color.fromRGBO(242, 254, 137, 1),
+              color: Color.fromRGBO(197, 237, 203, 1),
               width: 14,
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,

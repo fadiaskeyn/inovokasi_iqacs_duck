@@ -133,7 +133,7 @@ class _settingsPageState extends State<settingsPage> {
                                   height: 10,
                                 ),
                                 Text(
-                                  'Edy Atthoillah',
+                                  'Gumukmas Admin',
                                   style: blackTextStyle.copyWith(
                                       fontSize: 13, fontWeight: bold),
                                 ),
@@ -173,7 +173,7 @@ class _settingsPageState extends State<settingsPage> {
                       width: 20,
                     ),
                     Text(
-                      '+6285257315135', style: greyTextStyle.copyWith(fontSize: 11, fontWeight: light),
+                      '+6280000000000', style: greyTextStyle.copyWith(fontSize: 11, fontWeight: light),
                     )
                   ],
                 ),
@@ -201,7 +201,7 @@ class _settingsPageState extends State<settingsPage> {
                       width: 20,
                     ),
                     Text(
-                      'edy@gmail.com', style: greyTextStyle.copyWith(fontSize: 11, fontWeight: light),
+                      'admin@gmail.com', style: greyTextStyle.copyWith(fontSize: 11, fontWeight: light),
                     )
                   ],
                 ),

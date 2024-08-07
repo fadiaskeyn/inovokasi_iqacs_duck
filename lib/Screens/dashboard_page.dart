@@ -3,6 +3,10 @@ import 'package:mobile_gmf/Models/average_temp.dart';
 import 'package:mobile_gmf/Screens/Settings_page.dart';
 import 'package:mobile_gmf/Theme.dart';
 import 'package:mobile_gmf/Widgets/chart/bar_graph.dart';
+import 'package:mobile_gmf/Widgets/chart/bar_graph_amonia.dart';
+import 'package:mobile_gmf/Widgets/chart/bar_graph_karbon.dart';
+import 'package:mobile_gmf/Widgets/chart/bar_graph_kelembapan.dart';
+import 'package:mobile_gmf/Widgets/chart/bar_graph_metana.dart';
 import 'package:mobile_gmf/services/api_services.dart';
 import 'package:mobile_gmf/services/api_services_temp.dart';
 import 'package:mobile_gmf/Models/gas_reading.dart';
@@ -90,7 +94,7 @@ class _DashboardPageState extends State<DashboardPage> {
       appBar: AppBar(
         backgroundColor: greenColor,
         elevation: 0,
-        toolbarHeight: 20,
+        toolbarHeight: 1,
       ),
       body: Container(
         color: whiteColor,
@@ -112,7 +116,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       Text('Selamat datang',
                           style: whitekTextStyle.copyWith(fontWeight: light)),
                       Text(
-                        'Admin',
+                        'Gumukmas Admin',
                         style: whitekTextStyle.copyWith(fontWeight: regular),
                         textAlign: TextAlign.left,
                       ),
@@ -178,10 +182,10 @@ class _DashboardPageState extends State<DashboardPage> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                           child: Card(
-                            elevation: 3,
+                            elevation: 1,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(color: greyColor, width: 1),
+                              side: BorderSide(color: greyColor, width: 0.5),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(20.0),
@@ -251,26 +255,19 @@ class _DashboardPageState extends State<DashboardPage> {
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             children: [
-                              buildGasCard(
-                                'Metana',
-                                'CH4',
-                                metana,
-                                'assets/iconmetana.png',
-                                Color.fromRGBO(242, 207, 207, 1),
-                              ),
-                              buildGasCard2(
+                               buildGasCard2(
                                 'Kelembapan',
                                 'HR',
                                 humidity,
                                 'assets/iconamonia.png',
                                 Color.fromRGBO(197, 237, 203, 1),
                               ),
-                              buildGasCard3(
-                                'Karbon\nDioksida',
-                                'CO2',
-                                dioksida,
-                                'assets/iconamonia.png',
-                                Color.fromRGBO(198, 225, 225, 1),
+                              buildGasCard(
+                                'Metana',
+                                'CH4',
+                                metana,
+                                'assets/iconmetana.png',
+                                Color.fromRGBO(242, 207, 207, 1),
                               ),
                               buildGasCard(
                                 'Amonia',
@@ -279,6 +276,13 @@ class _DashboardPageState extends State<DashboardPage> {
                                 'assets/iconamonia.png',
                                 Color.fromRGBO(247, 215, 187, 1),
                               ),
+                              buildGasCard3(
+                                'Karbon\nDioksida',
+                                'CO2',
+                                dioksida,
+                                'assets/iconamonia.png',
+                                Color.fromRGBO(198, 225, 225, 1),
+                              ),
                             ],
                           ),
                         ),
@@ -286,41 +290,152 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                   ),
                   // Placeholder for the chart page
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(color: greyColor, width: 1),
+                  Column( 
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
-                        child: 
-                            Center(
-                                child: MyBarGraph(
-                              dailySummary: dailySummary,
-                            )),
-                          
-                      ),
+                      Text('Grafik rata-rata suhu', style: blackTextStyle.copyWith(fontWeight: bold),),
+                    Expanded(child: 
+                    Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Card(
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(color: greyColor, width: 0.5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
+                              child: Center(
+                                  child: MyBarGraph(
+                                dailySummary: dailySummary,
+                              )),
+                            ),
+                          ),
+                        ),
                     ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(color: greyColor, width: 1),
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
-                        child: Center(
-                            child: MyBarGraph(
-                          dailySummary: dailySummary,
-                        )),
+                      Text(
+                        'Grafik rata-rata kelembapan',
+                        style: blackTextStyle.copyWith(fontWeight: bold),
                       ),
-                    ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Card(
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(color: greyColor, width: 0.5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
+                              child: Center(
+                                  child: MyBarGraph2(
+                                dailySummary: dailySummary,
+                              )),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Grafik rata-rata metana',
+                        style: blackTextStyle.copyWith(fontWeight: bold),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Card(
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(color: greyColor, width: 0.5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
+                              child: Center(
+                                  child: MyBarGraph3(
+                                dailySummary: dailySummary,
+                              )),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Grafik rata-rata amonia',
+                        style: blackTextStyle.copyWith(fontWeight: bold),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Card(
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(color: greyColor, width: 0.5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
+                              child: Center(
+                                  child: MyBarGraph4(
+                                dailySummary: dailySummary,
+                              )),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Grafik rata-rata karbon dioksida',
+                        style: blackTextStyle.copyWith(fontWeight: bold),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Card(
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(color: greyColor, width: 0.5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
+                              child: Center(
+                                  child: MyBarGraph5(
+                                dailySummary: dailySummary,
+                              )),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

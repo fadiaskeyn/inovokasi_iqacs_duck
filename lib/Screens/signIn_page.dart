@@ -46,6 +46,26 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+  void _showSnackBarSuccess() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: whiteColor,
+        content: Row(
+          children: [
+            Icon(Icons.check, color: greenColor, size: 50),
+            const SizedBox(width: 20),
+            Text(
+              'Berhasil Login',
+              style: blackTextStyle.copyWith(fontWeight: medium),
+            ),
+          ],
+        ),
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
   login() async {
     try {
       final res = await http.post(Uri.parse(ApiConnect.login), body: {
@@ -61,13 +81,15 @@ class _SignInPageState extends State<SignInPage> {
         // sharedPreferences.setString('userdata', hasiluser.toString());
         setState(() {
           print(hasiluser);
+          _showSnackBarSuccess();
           toDashboard();
         });
         // _showSnackBarAndNavigateToLogin();
-        _showSnackBar("Login berhasil");
+        
       } else {
         setState(() {
-          _showSnackBar('Login gagal, periksa koneksi dan\ndetail akun lalu coba lagi');
+          _showSnackBar(
+              'Login gagal, periksa koneksi dan\ndetail akun lalu coba lagi');
         });
       }
 
@@ -121,7 +143,7 @@ class _SignInPageState extends State<SignInPage> {
             const SizedBox(
               height: 32,
             ),
-            Text('Email atau No Telepon',
+            Text('Email',
                 textAlign: TextAlign.left,
                 style: blackTextStyle.copyWith(
                   fontSize: 13,
