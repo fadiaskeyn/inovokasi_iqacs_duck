@@ -2,32 +2,32 @@ import 'dart:ui';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_gmf/Models/average_temp.dart';
+import 'package:mobile_gmf/Models/average_diok.dart';
 
-class BarDataKarbon {
+class BarDataDioksida {
   final List<BarChartGroupData> barData = [];
 
-  BarDataKarbon();
+  BarDataDioksida();
 
-  void initializeBarData(List<HourlyTemperature> hourlyTemperatures) {
+  void initializeBarData(List<HourlyDioksida> hourlyDioksida) {
     barData.clear();
 
-    for (var hourlyTemp in hourlyTemperatures) {
-      final temperature = hourlyTemp.averageTemperature;
+    for (var hourlyDiok in hourlyDioksida) {
+      final dioksida = hourlyDiok.averageDioksida;
       print(
-          'Adding BarData: hour=${hourlyTemp.hour}, temperature=$temperature');
+          'Adding BarData: hour=${hourlyDiok.hour}, dioksida=$dioksida');
 
       barData.add(
         BarChartGroupData(
-          x: hourlyTemp.hour,
+          x: hourlyDiok.hour,
           barRods: [
             BarChartRodData(
-              toY: temperature,
+              toY: dioksida,
               color: Color.fromRGBO(198, 225, 225, 1),
               width: 14,
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,
-                toY: 100,
+                toY: 400,
                 color: Colors.grey.withOpacity(0.2),
               ),
             ),

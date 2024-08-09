@@ -2,27 +2,27 @@ import 'dart:ui';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_gmf/Models/average_temp.dart';
+import 'package:mobile_gmf/Models/average_hum.dart';
 
 class BarDataKelembapan {
   final List<BarChartGroupData> barData = [];
 
   BarDataKelembapan();
 
-  void initializeBarData(List<HourlyTemperature> hourlyTemperatures) {
+  void initializeBarData(List<HourlyHumidity> hourlyHumidity) {
     barData.clear();
 
-    for (var hourlyTemp in hourlyTemperatures) {
-      final temperature = hourlyTemp.averageTemperature;
+    for (var hourlyHum in hourlyHumidity) {
+      final humidity = hourlyHum.averageHumidity;
       print(
-          'Adding BarData: hour=${hourlyTemp.hour}, temperature=$temperature');
+          'Adding BarData: hour=${hourlyHum.hour}, humidity=$humidity');
 
       barData.add(
         BarChartGroupData(
-          x: hourlyTemp.hour,
+          x: hourlyHum.hour,
           barRods: [
             BarChartRodData(
-              toY: temperature,
+              toY: humidity,
               color: Color.fromRGBO(197, 237, 203, 1),
               width: 14,
               backDrawRodData: BackgroundBarChartRodData(

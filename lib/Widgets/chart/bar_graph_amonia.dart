@@ -1,25 +1,25 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_gmf/Models/average_temp.dart';
+import 'package:mobile_gmf/Models/average_amon.dart';
 import 'package:mobile_gmf/Widgets/chart/bar_data_amonia.dart';
 // import 'package:mobile_gmf/Widgets/chart/bar_data_karbon.dart';
 // import 'package:mobile_gmf/Widgets/chart/bar_data.dart';
 // import 'package:mobile_gmf/Widgets/chart/bar_data_kelembapan.dart';
 
 class MyBarGraph4 extends StatelessWidget {
-  final List<HourlyTemperature> dailySummary;
+  final List<HourlyAmonia> dailySummary4;
 
-  const MyBarGraph4({super.key, required this.dailySummary});
+  const MyBarGraph4({super.key, required this.dailySummary4});
 
   @override
   Widget build(BuildContext context) {
     // Initialize BarData with the dailySummary
     BarDataAmonia myBarData = BarDataAmonia();
-    myBarData.initializeBarData(dailySummary);
+    myBarData.initializeBarData(dailySummary4);
 
     return BarChart(
       BarChartData(
-        maxY: 100,
+        maxY: 400,
         minY: 0,
         gridData: FlGridData(show: true),
         borderData: FlBorderData(show: false),

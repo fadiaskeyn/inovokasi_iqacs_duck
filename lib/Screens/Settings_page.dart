@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_gmf/Screens/signIn_page.dart';
 import 'package:mobile_gmf/Theme.dart';
+import 'package:mobile_gmf/Screens/dashboard_page.dart';
 
 class settingsPage extends StatefulWidget {
   const settingsPage({super.key});
@@ -9,6 +11,11 @@ class settingsPage extends StatefulWidget {
 }
 
 class _settingsPageState extends State<settingsPage> {
+
+  // logout() {
+  //   Navigator.push(
+  //       context, MaterialPageRoute(builder: (context) => SignInPage()));
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -257,9 +264,10 @@ class _settingsPageState extends State<settingsPage> {
                     const SizedBox(
                       width: 20,
                     ),
-                    Text(
-                      'Logout', style: redTextStyle.copyWith(fontSize: 11, fontWeight: light),
-                    )
+                    
+                      Text(
+                        'Logout', style: redTextStyle.copyWith(fontSize: 11, fontWeight: light),
+                      ),
                   ],
                 ),
                 

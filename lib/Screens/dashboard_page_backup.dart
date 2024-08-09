@@ -48,19 +48,19 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Future<void> fetchGasReadings() async {
-    try {
-      List<GasReading> readings = await ApiService().fetchGasReadings();
-      if (readings.isNotEmpty) {
-        setState(() {
-          ammonia = readings.last.ammonia;
-          methane = readings.last.methane;
-          co2 = readings.last.carbonDioxide;
-          n20 = readings.last.nitrousOxide;
-        });
-      }
-    } catch (e) {
-      print('Failed to fetch gas readings: $e');
-    }
+    // try {
+    //   // List<GasReading> readings = await ApiService().fetchGasReadings();
+    //   // if (readings.isNotEmpty) {
+    //   //   setState(() {
+    //   //     ammonia = readings.last.ammonia;
+    //   //     methane = readings.last.methane;
+    //   //     co2 = readings.last.carbonDioxide;
+    //   //     n20 = readings.last.nitrousOxide;
+    //   //   });
+    //   }
+    // } catch (e) {
+    //   print('Failed to fetch gas readings: $e');
+    // }
   }
 
   @override

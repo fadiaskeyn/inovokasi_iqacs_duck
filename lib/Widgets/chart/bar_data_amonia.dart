@@ -2,32 +2,32 @@ import 'dart:ui';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_gmf/Models/average_temp.dart';
+import 'package:mobile_gmf/Models/average_amon.dart';
 
 class BarDataAmonia {
   final List<BarChartGroupData> barData = [];
 
   BarDataAmonia();
 
-  void initializeBarData(List<HourlyTemperature> hourlyTemperatures) {
+  void initializeBarData(List<HourlyAmonia> hourlyAmonia) {
     barData.clear();
 
-    for (var hourlyTemp in hourlyTemperatures) {
-      final temperature = hourlyTemp.averageTemperature;
+    for (var hourlyAmon in hourlyAmonia) {
+      final amonia = hourlyAmon.averageAmonia;
       print(
-          'Adding BarData: hour=${hourlyTemp.hour}, temperature=$temperature');
+          'Adding BarData: hour=${hourlyAmon.hour}, amonia=$amonia');
 
       barData.add(
         BarChartGroupData(
-          x: hourlyTemp.hour,
+          x: hourlyAmon.hour,
           barRods: [
             BarChartRodData(
-              toY: temperature,
+              toY: amonia,
               color: Color.fromRGBO(247, 215, 187, 1),
               width: 14,
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,
-                toY: 100,
+                toY: 400,
                 color: Colors.grey.withOpacity(0.2),
               ),
             ),

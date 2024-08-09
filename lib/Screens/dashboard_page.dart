@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_gmf/Models/average_diok.dart';
 import 'package:mobile_gmf/Models/average_temp.dart';
+import 'package:mobile_gmf/Models/average_hum.dart';
+import 'package:mobile_gmf/Models/average_meth.dart';
+import 'package:mobile_gmf/Models/average_amon.dart';
 import 'package:mobile_gmf/Screens/Settings_page.dart';
 import 'package:mobile_gmf/Theme.dart';
 import 'package:mobile_gmf/Widgets/chart/bar_graph.dart';
@@ -9,6 +13,10 @@ import 'package:mobile_gmf/Widgets/chart/bar_graph_kelembapan.dart';
 import 'package:mobile_gmf/Widgets/chart/bar_graph_metana.dart';
 import 'package:mobile_gmf/services/api_services.dart';
 import 'package:mobile_gmf/services/api_services_temp.dart';
+import 'package:mobile_gmf/services/api_services_hum.dart';
+import 'package:mobile_gmf/services/api_services_meth.dart';
+import 'package:mobile_gmf/services/api_services_amo.dart';
+import 'package:mobile_gmf/services/api_services_diok.dart';
 import 'package:mobile_gmf/Models/gas_reading.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -29,6 +37,10 @@ class _DashboardPageState extends State<DashboardPage> {
   double amonia = 0.0;
   String lastUpdated = '';
   List<HourlyTemperature> dailySummary = [];
+  List<HourlyHumidity> dailySummary2 = [];
+  List<HourlyMethane> dailySummary3 = [];
+  List<HourlyAmonia> dailySummary4 = [];
+  List<HourlyDioksida> dailySummary5 = [];
 
   @override
   void initState() {
@@ -41,9 +53,18 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
+  Future<void> toSettingsPage() async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => settingsPage()));
+  }
+
   Future<void> fetchData() async {
     await fetchGasReadings();
     await fetchDailyTemperatureSummary();
+    await fetchDailyHumiditySummary();
+    await fetchDailyMethaneSummary();
+    await fetchDailyAmoniaSummary();
+    await fetchDailyDioksidaSummary();
   }
 
   Future<void> fetchGasReadings() async {
@@ -80,6 +101,54 @@ class _DashboardPageState extends State<DashboardPage> {
       });
     } catch (e) {
       print('Failed to fetch daily temperature summary: $e');
+    }
+  }
+
+  Future<void> fetchDailyHumiditySummary() async {
+    try {
+      HumidityData humidityData =
+          await ApiServiceHum().fetchDailyHumiditySummary(dropdownvalue);
+      setState(() {
+        dailySummary2 = humidityData.humidity;
+      });
+    } catch (e) {
+      print('Failed to fetch daily humidity summary: $e');
+    }
+  }
+
+  Future<void> fetchDailyMethaneSummary() async {
+    try {
+      MethaneData methaneData =
+          await ApiServiceMeth().fetchDailyMethaneSummary(dropdownvalue);
+      setState(() {
+        dailySummary3 = methaneData.methane;
+      });
+    } catch (e) {
+      print('Failed to fetch daily methane summary: $e');
+    }
+  }
+
+  Future<void> fetchDailyAmoniaSummary() async {
+    try {
+      AmoniaData amoniaData =
+          await ApiServiceAmon().fetchDailyAmoniaSummary(dropdownvalue);
+      setState(() {
+        dailySummary4 = amoniaData.amonia;
+      });
+    } catch (e) {
+      print('Failed to fetch daily amonia summary: $e');
+    }
+  }
+
+  Future<void> fetchDailyDioksidaSummary() async {
+    try {
+      DioksidaData dioksidaData =
+          await ApiServiceDiok().fetchDailyDioksidaSummary(dropdownvalue);
+      setState(() {
+        dailySummary5 = dioksidaData.dioksida;
+      });
+    } catch (e) {
+      print('Failed to fetch daily dioksida summary: $e');
     }
   }
 
@@ -126,10 +195,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     icon: Image.asset('assets/button_settings.png'),
                     iconSize: 52,
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => settingsPage()));
+                      toSettingsPage();
                     },
                   ),
                 ],
@@ -255,7 +321,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             children: [
-                               buildGasCard2(
+                              buildGasCard2(
                                 'Kelembapan',
                                 'HR',
                                 humidity,
@@ -290,14 +356,17 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                   ),
                   // Placeholder for the chart page
-                  Column( 
+                  Column(
                     children: [
                       const SizedBox(
                         height: 10,
                       ),
-                      Text('Grafik rata-rata suhu', style: blackTextStyle.copyWith(fontWeight: bold),),
-                    Expanded(child: 
-                    Padding(
+                      Text(
+                        'Grafik rata-rata suhu',
+                        style: blackTextStyle.copyWith(fontWeight: bold),
+                      ),
+                      Expanded(
+                        child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Card(
                             elevation: 1,
@@ -314,7 +383,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),
                           ),
                         ),
-                    ),
+                      ),
                     ],
                   ),
                   Column(
@@ -339,7 +408,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
                               child: Center(
                                   child: MyBarGraph2(
-                                dailySummary: dailySummary,
+                                dailySummary2: dailySummary2,
                               )),
                             ),
                           ),
@@ -369,7 +438,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
                               child: Center(
                                   child: MyBarGraph3(
-                                dailySummary: dailySummary,
+                                dailySummary3: dailySummary3,
                               )),
                             ),
                           ),
@@ -399,7 +468,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
                               child: Center(
                                   child: MyBarGraph4(
-                                dailySummary: dailySummary,
+                                dailySummary4: dailySummary4,
                               )),
                             ),
                           ),
@@ -429,7 +498,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               padding: const EdgeInsets.fromLTRB(10, 20, 1, 6),
                               child: Center(
                                   child: MyBarGraph5(
-                                dailySummary: dailySummary,
+                                dailySummary5: dailySummary5,
                               )),
                             ),
                           ),

@@ -2,32 +2,32 @@ import 'dart:ui';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_gmf/Models/average_temp.dart';
+import 'package:mobile_gmf/Models/average_meth.dart';
 
 class BarDataMetana {
   final List<BarChartGroupData> barData = [];
 
   BarDataMetana();
 
-  void initializeBarData(List<HourlyTemperature> hourlyTemperatures) {
+  void initializeBarData(List<HourlyMethane> hourlyMethane) {
     barData.clear();
 
-    for (var hourlyTemp in hourlyTemperatures) {
-      final temperature = hourlyTemp.averageTemperature;
+    for (var hourlyMeth in hourlyMethane) {
+      final methane = hourlyMeth.averageMethane;
       print(
-          'Adding BarData: hour=${hourlyTemp.hour}, temperature=$temperature');
+          'Adding BarData: hour=${hourlyMeth.hour}, methane=$methane');
 
       barData.add(
         BarChartGroupData(
-          x: hourlyTemp.hour,
+          x: hourlyMeth.hour,
           barRods: [
             BarChartRodData(
-              toY: temperature,
+              toY: methane,
               color: Color.fromRGBO(242, 207, 207, 1),
               width: 14,
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,
-                toY: 100,
+                toY: 400,
                 color: Colors.grey.withOpacity(0.2),
               ),
             ),

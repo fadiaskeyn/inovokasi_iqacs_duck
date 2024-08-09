@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:mobile_gmf/Screens/dashboard_page.dart';
 import 'package:mobile_gmf/Theme.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_gmf/services/api_connect.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -15,15 +17,17 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  
 
   @override
   void initState() {
     super.initState();
-    String user = 'test';
+    
   }
 
   Future<void> toDashboard() async {
-    Navigator.pushNamedAndRemoveUntil(context, '/dashboard', (route) => false);
+   Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DashboardPage()));
   }
 
   void _showSnackBar(String message) {
@@ -65,6 +69,7 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
   }
+  
 
   login() async {
     try {
@@ -73,19 +78,24 @@ class _SignInPageState extends State<SignInPage> {
         "password": passwordController.text,
       });
       if (res.statusCode == 200) {
-        // SharedPreferences sharedPreferences =
-        //     await SharedPreferences.getInstance();
-
+       
         String datauser = res.body;
         var hasiluser = jsonDecode(datauser);
-        // sharedPreferences.setString('userdata', hasiluser.toString());
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+
+        var token = hasiluser["token"];
+        sharedPreferences.setString('token', token.toString());
+        var name = hasiluser["name"];
+        sharedPreferences.setString('name', name.toString());
+        var email = hasiluser["email"];
+        sharedPreferences.setString('email', email.toString());
         setState(() {
           print(hasiluser);
           _showSnackBarSuccess();
           toDashboard();
         });
         // _showSnackBarAndNavigateToLogin();
-        
       } else {
         setState(() {
           _showSnackBar(
