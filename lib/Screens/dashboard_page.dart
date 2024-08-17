@@ -85,12 +85,26 @@ class _DashboardPageState extends State<DashboardPage> {
             apiResponse.metana.isNotEmpty ? apiResponse.metana.last.nilai : 0.0;
         amonia =
             apiResponse.amonia.isNotEmpty ? apiResponse.amonia.last.nilai : 0.0;
-        lastUpdated = DateFormat('HH:mm, dd MMMM yyyy').format(DateTime.now());
+
+        // Update lastUpdated to the latest created_at field
+        final lastUpdatedDate = [
+          if (apiResponse.dioksida.isNotEmpty)
+            apiResponse.dioksida.last.createdAt,
+          if (apiResponse.humidity.isNotEmpty)
+            apiResponse.humidity.last.createdAt,
+          if (apiResponse.temperature.isNotEmpty)
+            apiResponse.temperature.last.createdAt,
+          if (apiResponse.metana.isNotEmpty) apiResponse.metana.last.createdAt,
+          if (apiResponse.amonia.isNotEmpty) apiResponse.amonia.last.createdAt,
+        ].reduce((a, b) => a.isAfter(b) ? a : b);
+
+        lastUpdated = DateFormat('HH:mm, dd MMMM yyyy').format(lastUpdatedDate);
       });
     } catch (e) {
       print('Failed to fetch gas readings: $e');
     }
   }
+
 
   Future<void> fetchDailyTemperatureSummary() async {
     try {

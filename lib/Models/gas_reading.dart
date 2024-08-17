@@ -2,16 +2,14 @@ class GasReading {
   final int id;
   final int idAlat;
   final double nilai;
-  // final DateTime createdAt;
-  // final DateTime updatedAt;
+  final DateTime createdAt;
 
-  GasReading(
-      {required this.id,
-      required this.idAlat,
-      required this.nilai,
-      // required this.createdAt,
-      // required this.updatedAt
-      });
+  GasReading({
+    required this.id,
+    required this.idAlat,
+    required this.nilai,
+    required this.createdAt,
+  });
 
   factory GasReading.fromJson(Map<String, dynamic> json) {
     return GasReading(
@@ -27,8 +25,7 @@ class GasReading {
               json['nilai_metana'] ??
               json['nilai_amonia'])
           .toDouble(),
-      // createdAt: DateTime.parse(json['created_at']),
-      // updatedAt: DateTime.parse(json['updated_at']),
+      createdAt: DateTime.parse(json['created_at']),
     );
   }
 }
