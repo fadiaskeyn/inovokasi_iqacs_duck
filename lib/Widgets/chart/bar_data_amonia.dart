@@ -27,7 +27,7 @@ class BarDataAmonia {
               width: 14,
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,
-                toY: 400,
+                toY: 300,
                 color: Colors.grey.withOpacity(0.2),
               ),
             ),

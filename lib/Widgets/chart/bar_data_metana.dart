@@ -27,7 +27,7 @@ class BarDataMetana {
               width: 14,
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,
-                toY: 400,
+                toY: 3000,
                 color: Colors.grey.withOpacity(0.2),
               ),
             ),

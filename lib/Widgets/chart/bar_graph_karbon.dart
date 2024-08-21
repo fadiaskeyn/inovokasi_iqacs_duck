@@ -18,7 +18,7 @@ class MyBarGraph5 extends StatelessWidget {
 
     return BarChart(
       BarChartData(
-        maxY: 400,
+        maxY: 9000,
         minY: 0,
         gridData: FlGridData(show: true),
         borderData: FlBorderData(show: false),

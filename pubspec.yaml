@@ -41,7 +41,7 @@ dependencies:
   fl_chart: ^0.60.0
   icons_launcher: ^2.1.7
   shared_preferences: ^2.2.1
-  gauge_indicator: ^0.4.3
+  syncfusion_flutter_gauges: ^20.1.47
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -19,7 +19,7 @@ class MyBarGraph3 extends StatelessWidget {
 
     return BarChart(
       BarChartData(
-        maxY: 400,
+        maxY: 3000,
         minY: 0,
         gridData: FlGridData(show: true),
         borderData: FlBorderData(show: false),
