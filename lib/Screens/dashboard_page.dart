@@ -49,7 +49,7 @@ class _DashboardPageState extends State<DashboardPage> {
     fetchData(); // Fetch data initially
 
     // Schedule fetching data every 2 minutes
-    Timer.periodic(Duration(minutes: 2), (Timer timer) {
+    Timer.periodic(Duration(minutes: 1), (Timer timer) {
       fetchData();
     });
   }
@@ -260,149 +260,152 @@ class _DashboardPageState extends State<DashboardPage> {
             Expanded(
               child: PageView(
                 children: [
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                          child: Card(
-                            elevation: 1,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(color: greyColor, width: 0.5),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      SizedBox(width: 1),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text('Suhu',
-                                              style: blackTextStyle.copyWith(
-                                                  fontWeight: regular)),
-                                          Row(
-                                            children: [
-                                              Text('$temperature',
-                                                  style:
-                                                      blackTextStyle.copyWith(
-                                                          fontSize: 33,
-                                                          fontWeight: bold)),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text('C',
-                                                  style:
-                                                      blackTextStyle.copyWith(
-                                                          fontSize: 33,
-                                                          fontWeight: bold)),
-                                              const SizedBox(
-                                                width: 80,
-                                              ),
-                                              // Image.asset(
-                                              //     'assets/iconamonia.png',
-                                              //     height: 60,
-                                              //     width: 60),
-                                              Container(
-                                                height: 110,
-                                                width: 110,
-                                                child: 
-                                                  SfRadialGauge(
-                                                      axes: <RadialAxis>[
-                                                        RadialAxis(
-                                                            minimum: 0,
-                                                            maximum: 100,
-                                                            showLabels: false, 
-                                                            showAxisLine: true,
-                                                            showLastLabel: true,
-                                                            ranges: <GaugeRange>[
-                                                              GaugeRange(startValue: 0, endValue: 33, color: Colors.green),
-                                                              GaugeRange(startValue: 33, endValue: 66, color: Colors.orange),
-                                                              GaugeRange(startValue: 66, endValue: 100, color: Colors.red)
-                                                            ],
-                                                            pointers: <GaugePointer>[
-                                                              NeedlePointer(value: temperature)],
-                                                            annotations: <GaugeAnnotation>[
-                                                              GaugeAnnotation(
-                                                                  widget: Container(
-                                                                      child: Text(
-                                                                          '',
-                                                                          style: TextStyle(
-                                                                              fontSize:
-                                                                                  15,
-                                                                              fontWeight: FontWeight
-                                                                                  .w200))),
-                                                                  angle: 90,
-                                                                  positionFactor:
-                                                                      0.5)
-                                                            ])
-                                                      ])
-                                                
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      const SizedBox(
-                                        width: 2,
-                                      ),
-                                      Text('Diperbarui $lastUpdated',
-                                          style: blackTextStyle.copyWith(
-                                              fontWeight: light, fontSize: 10)),
-                                    ],
-                                  )
-                                ],
+                  RefreshIndicator(
+                    onRefresh: fetchData,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                            child: Card(
+                              elevation: 1,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(color: greyColor, width: 0.5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SizedBox(width: 1),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('Suhu',
+                                                style: blackTextStyle.copyWith(
+                                                    fontWeight: regular)),
+                                            Row(
+                                              children: [
+                                                Text('$temperature',
+                                                    style:
+                                                        blackTextStyle.copyWith(
+                                                            fontSize: 33,
+                                                            fontWeight: bold)),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text('C',
+                                                    style:
+                                                        blackTextStyle.copyWith(
+                                                            fontSize: 33,
+                                                            fontWeight: bold)),
+                                                const SizedBox(
+                                                  width: 80,
+                                                ),
+                                                // Image.asset(
+                                                //     'assets/iconamonia.png',
+                                                //     height: 60,
+                                                //     width: 60),
+                                                Container(
+                                                  height: 110,
+                                                  width: 110,
+                                                  child: 
+                                                    SfRadialGauge(
+                                                        axes: <RadialAxis>[
+                                                          RadialAxis(
+                                                              minimum: 0,
+                                                              maximum: 100,
+                                                              showLabels: false, 
+                                                              showAxisLine: true,
+                                                              showLastLabel: true,
+                                                              ranges: <GaugeRange>[
+                                                                GaugeRange(startValue: 0, endValue: 33, color: Colors.green),
+                                                                GaugeRange(startValue: 33, endValue: 66, color: Colors.orange),
+                                                                GaugeRange(startValue: 66, endValue: 100, color: Colors.red)
+                                                              ],
+                                                              pointers: <GaugePointer>[
+                                                                NeedlePointer(value: temperature)],
+                                                              annotations: <GaugeAnnotation>[
+                                                                GaugeAnnotation(
+                                                                    widget: Container(
+                                                                        child: Text(
+                                                                            '',
+                                                                            style: TextStyle(
+                                                                                fontSize:
+                                                                                    15,
+                                                                                fontWeight: FontWeight
+                                                                                    .w200))),
+                                                                    angle: 90,
+                                                                    positionFactor:
+                                                                        0.5)
+                                                              ])
+                                                        ])
+                                                  
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        const SizedBox(
+                                          width: 2,
+                                        ),
+                                        Text('Diperbarui $lastUpdated',
+                                            style: blackTextStyle.copyWith(
+                                                fontWeight: light, fontSize: 10)),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: GridView.count(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 4,
-                            mainAxisSpacing: 4,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            children: [
-                              buildGasCard2(
-                                'Kelembapan',
-                                'HR',
-                                humidity,
-                                Color.fromRGBO(197, 237, 203, 1),
-                              ),
-                              buildGasCard4(
-                                'Metana',
-                                'CH4',
-                                metana,
-                                Color.fromRGBO(242, 207, 207, 1),
-                              ),
-                              buildGasCard(
-                                'Amonia',
-                                'NH3',
-                                amonia,
-                                Color.fromRGBO(247, 215, 187, 1),
-                              ),
-                              buildGasCard3(
-                                'Karbon\nDioksida',
-                                'CO2',
-                                dioksida,
-                                Color.fromRGBO(198, 225, 225, 1),
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: GridView.count(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 4,
+                              mainAxisSpacing: 4,
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              children: [
+                                buildGasCard2(
+                                  'Kelembapan',
+                                  'HR',
+                                  humidity,
+                                  Color.fromRGBO(197, 237, 203, 1),
+                                ),
+                                buildGasCard4(
+                                  'Metana',
+                                  'CH4',
+                                  metana,
+                                  Color.fromRGBO(242, 207, 207, 1),
+                                ),
+                                buildGasCard(
+                                  'Amonia',
+                                  'NH3',
+                                  amonia,
+                                  Color.fromRGBO(247, 215, 187, 1),
+                                ),
+                                buildGasCard3(
+                                  'Karbon\nDioksida',
+                                  'CO2',
+                                  dioksida,
+                                  Color.fromRGBO(198, 225, 225, 1),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   // Placeholder for the chart page
