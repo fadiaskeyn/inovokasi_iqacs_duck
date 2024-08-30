@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_gmf/Screens/about_page.dart';
+import 'package:mobile_gmf/Screens/Settings_page.dart';
 import 'package:mobile_gmf/Screens/signIn_page.dart';
 import 'package:mobile_gmf/Theme.dart';
 import 'package:mobile_gmf/Screens/dashboard_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class settingsPage extends StatefulWidget {
-  const settingsPage({super.key});
+class aboutPage extends StatefulWidget {
+  const aboutPage({super.key});
 
   @override
-  State<settingsPage> createState() => _settingsPageState();
+  State<aboutPage> createState() => _aboutPageState();
 }
 
-class _settingsPageState extends State<settingsPage> {
+class _aboutPageState extends State<aboutPage> {
   logout() {
     setState(() {
       sendLogout();
@@ -23,11 +23,9 @@ class _settingsPageState extends State<settingsPage> {
     });
   }
 
-  toAbout() {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => aboutPage()),
-          (route) => false);
+  toAccount() {
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => settingsPage()), (route) => false);
   }
 
   Future<void> sendLogout() async {
@@ -67,36 +65,8 @@ class _settingsPageState extends State<settingsPage> {
                   const SizedBox(
                     width: 20,
                   ),
-                  Container(
-                    height: 34,
-                    width: 100,
-                    // color: greenColor,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: greenColor,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                      color: greenColor,
-                    ),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          'Akun',
-                          style: whitekTextStyle.copyWith(fontSize: 11),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
                   InkWell(
-                    onTap: toAbout,
+                    onTap: toAccount,
                     child: Container(
                       height: 34,
                       width: 100,
@@ -115,12 +85,40 @@ class _settingsPageState extends State<settingsPage> {
                             height: 8,
                           ),
                           Text(
-                            'Tentang Aplikasi',
-                            style: greyTextStyle.copyWith(fontSize: 11),
+                            'Akun',
+                            style: blackTextStyle.copyWith(fontSize: 11),
                             textAlign: TextAlign.center,
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Container(
+                    height: 34,
+                    width: 100,
+                    // color: greenColor,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: greenColor,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      color: greenColor,
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          'Tentang Aplikasi',
+                          style: whitekTextStyle.copyWith(fontSize: 11),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -147,37 +145,28 @@ class _settingsPageState extends State<settingsPage> {
                         SizedBox(
                           height: 4,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
                         Container(
-                          height: 76,
-                          width: 76,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('assets/profile_image2.png')),
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Gumukmas Admin',
+                          margin: EdgeInsets.all(10),
+                          child:  Text(
+                              'Gumukmas Multifarm (GMF) adalah perusahaan yang berfokus pada kemitraan domba dan penyediaan pakan ternak ruminansia berkualitas tinggi. Berlokasi di Jember, Jawa Timur, kami berkomitmen untuk mendukung peternak lokal menjadi go internasional. Hubungi kami dibawah ini!',
                               style: blackTextStyle.copyWith(
-                                  fontSize: 13, fontWeight: bold),
+                                  fontSize: 13, fontWeight: regular),
+                              textAlign: TextAlign.justify,
                             ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                              'Karyawan',
-                              style: blackTextStyle.copyWith(
-                                  fontSize: 12, fontWeight: light),
-                            )
-                          ],
-                        ),
+                        )
+                        // Column(
+                        //   children: [
+                        //     const SizedBox(
+                        //       height: 10,
+                        //     ),
+                        //     Text(
+                        //       'Gumukmas Multifarm (GMF) adalah perusahaan yang berfokus pada kemitraan domba dan penyediaan pakan ternak ruminansia berkualitas tinggi. Berlokasi di Jember, Jawa Timur, kami berkomitmen untuk mendukung peternak lokal menjadi go internasional. Hubungi kami dibawah ini !',
+                        //       style: blackTextStyle.copyWith(
+                        //           fontSize: 13, fontWeight: bold),
+                        //       textAlign: TextAlign.justify,
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     )),
               ),
@@ -201,13 +190,16 @@ class _settingsPageState extends State<settingsPage> {
                     Container(
                       height: 20,
                       width: 20,
-                      child: Icon(Icons.call),
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/instagram.png')),
+                        ),
                     ),
                     const SizedBox(
                       width: 15,
                     ),
                     Text(
-                      '+6285745616430',
+                      'gumukmasmultifarm',
                       style: greyTextStyle.copyWith(
                           fontSize: 11, fontWeight: light),
                     )
@@ -234,13 +226,16 @@ class _settingsPageState extends State<settingsPage> {
                     Container(
                       height: 20,
                       width: 20,
-                      child: Icon(Icons.mail),
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/facebook.png')),
+                        ),
                     ),
                     const SizedBox(
                       width: 15,
                     ),
                     Text(
-                      'admin@gmail.com',
+                      'Gumukmas Multifarm',
                       style: greyTextStyle.copyWith(
                           fontSize: 11, fontWeight: light),
                     )
@@ -267,22 +262,23 @@ class _settingsPageState extends State<settingsPage> {
                     Container(
                       height: 20,
                       width: 20,
-                      child: Icon(Icons.lock),
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/twitter.png')),
+                      ),
                     ),
                     const SizedBox(
                       width: 15,
                     ),
                     Text(
-                      'Ganti Password',
+                      'FarmMulti',
                       style: greyTextStyle.copyWith(
                           fontSize: 11, fontWeight: light),
                     )
                   ],
                 ),
               ),
-              InkWell(
-                onTap: logout,
-                child: Container(
+              Container(
                   margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                   height: 40,
                   width: 340,
@@ -297,28 +293,27 @@ class _settingsPageState extends State<settingsPage> {
                   child: Row(
                     children: [
                       const SizedBox(
-                        width: 15,
+                        width: 10,
                       ),
                       Container(
                         height: 20,
                         width: 20,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                              image: AssetImage('assets/logout.png')),
+                              image: AssetImage('assets/youtube.png')),
                         ),
                       ),
                       const SizedBox(
-                        width: 10,
+                        width: 15,
                       ),
                       Text(
-                        'Logout',
-                        style: redTextStyle.copyWith(
+                        'Gumukmas Multifarm',
+                        style: greyTextStyle.copyWith(
                             fontSize: 11, fontWeight: light),
                       ),
                     ],
                   ),
                 ),
-              ),
             ],
           ),
         ));
