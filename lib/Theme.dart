@@ -3,9 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Color whiteColor = const Color(0xffFFFFFF);
+Color whiteColor = Color.fromARGB(255, 255, 255, 255);
 Color blackColor = const Color(0xff14193F);
 Color greyColor = const Color(0xffA4A8AE);
+Color bgcuy = Color.fromARGB(235, 255, 255, 255);
 Color lightBackgroundColor = const Color(0xffF6F8FB);
 Color darkBackgroundColor = const Color(0xff020518);
 Color blueColor = const Color(0xff53C1F9);
@@ -13,6 +14,7 @@ Color bluetogreenColor = const Color(0xff228896);
 Color greenColor = const Color(0xff065f46);
 Color numberBackgroundColor = const Color(0xff1A1D2E);
 Color neutral80Color = const Color(0xffC9C5CA);
+Color darkBrown = const Color.fromARGB(160, 71, 71, 1);
 Color dark50Color = const Color(0xff4e5b5c);
 Color dark20color = const Color(0xff212E30);
 Color neutral95Color = const Color(0xffF3F3F3);
@@ -43,14 +45,12 @@ TextStyle redTextStyle = GoogleFonts.inter(
   color: danger40Color,
 );
 
-
 TextStyle greyTextStyle = GoogleFonts.inter(
   color: dark20color,
 );
 
 TextStyle whitekTextStyle = GoogleFonts.inter(
   color: whiteColor,
-  
 );
 
 TextStyle bluetogreenTextStyle = GoogleFonts.inter(

@@ -42,7 +42,7 @@ class _SplashPageState extends State<SplashPage> {
                   fontWeight: semiBold,
                 ),
                 iconTheme: IconThemeData(color: blackColor))),
-        
+
         // },
         home: token == null ? const SignInPage() : const DashboardPage()));
     // home: token == null ? const MaintenancePage() : const MaintenancePage()));
@@ -51,14 +51,24 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: greenColor,
-      body: Center(
-        child: Container(
-          height: 209,
-          width: 209,
-          decoration: const BoxDecoration(
+      body: Container(
+        decoration: BoxDecoration(
+          color: darkBrown, // Warna background
+          image: DecorationImage(
+            image: AssetImage('assets/bgss.png'), // Gambar background
+            fit: BoxFit.cover, // Mengatur agar gambar mengisi kontainer
+          ),
+        ),
+        child: Center(
+          child: Container(
+            height: 209,
+            width: 209,
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/gmf.png'))),
+                image: AssetImage('assets/duck.png'),
+              ),
+            ),
+          ),
         ),
       ),
     );

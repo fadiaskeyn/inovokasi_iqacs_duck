@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mobile_gmf/Models/average_diok.dart';
 import 'package:mobile_gmf/Models/average_temp.dart';
 import 'package:mobile_gmf/Models/average_hum.dart';
@@ -106,7 +107,6 @@ class _DashboardPageState extends State<DashboardPage> {
     }
   }
 
-
   Future<void> fetchDailyTemperatureSummary() async {
     try {
       TemperatureData temperatureData =
@@ -167,25 +167,23 @@ class _DashboardPageState extends State<DashboardPage> {
     }
   }
 
-  // Initial Selected Value
   String dropdownvalue = '1';
 
-  // List of items in our dropdown menu
   var items = ['1', '2', '3', '4'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: greenColor,
+        backgroundColor: darkBrown,
         elevation: 0,
         toolbarHeight: 1,
       ),
       body: Container(
-        color: whiteColor,
+        color: bgcuy,
         child: Column(
           children: [
             Container(
-              color: greenColor,
+              color: darkBrown,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -201,7 +199,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       Text('Selamat datang',
                           style: whitekTextStyle.copyWith(fontWeight: light)),
                       Text(
-                        'Gumukmas Admin',
+                        'Admin',
                         style: whitekTextStyle.copyWith(fontWeight: regular),
                         textAlign: TextAlign.left,
                       ),
@@ -218,45 +216,95 @@ class _DashboardPageState extends State<DashboardPage> {
                 ],
               ),
             ),
+
             Container(
-              color: greenColor,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: darkBrown,
+                image: DecorationImage(
+                  image: AssetImage('assets/bgss.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('Kualitas udara',
-                      style: whitekTextStyle.copyWith(fontWeight: bold)),
-                  Row(
-                    children: [
-                      const SizedBox(width: 140),
-                      Text('Lokasi',
-                          style: whitekTextStyle.copyWith(fontWeight: bold)),
-                      SizedBox(width: 3),
-                      DropdownButton(
-                        value: dropdownvalue,
-                        dropdownColor: greenColor,
-                        style: whitekTextStyle,
-                        icon: Icon(Icons.keyboard_arrow_down,
-                            color: Colors.white),
-                        items: items.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownvalue = newValue!;
-                            print(dropdownvalue);
-                            fetchData();
-                          });
-                        },
-                      ),
-                    ],
+                  Text(
+                    'Kualitas udara',
+                    style:
+                        whitekTextStyle.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
+
+            // ini antara suhu & header
+            Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Bagian kiri untuk gambar
+                  Image.asset(
+                    "assets/lamp.png",
+                    width: 120.0,
+                    height: 120.0,
+                    fit: BoxFit.fill,
+                  ),
+                  SizedBox(width: 15), // Spasi antara gambar dan teks
+
+                  // Bagian kanan untuk teks dan switch
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(height: 10),
+                        Text(
+                          "Status Lampu",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          "Mati",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Switch(
+                          value: false,
+                          onChanged: (bool value) {
+                            // Tambahkan logika di sini jika diperlukan
+                          },
+                        ),
+                        SizedBox(height: 10),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+// End
+
             Expanded(
               child: PageView(
                 children: [
@@ -271,12 +319,12 @@ class _DashboardPageState extends State<DashboardPage> {
                               elevation: 1,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                side: BorderSide(color: greyColor, width: 0.5),
+                                side: BorderSide(color: greyColor, width: 1),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [
@@ -285,67 +333,41 @@ class _DashboardPageState extends State<DashboardPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text('Suhu',
-                                                style: blackTextStyle.copyWith(
-                                                    fontWeight: regular)),
+                                            Text(
+                                              'Gas Amonia',
+                                              style: blackTextStyle.copyWith(
+                                                  fontWeight: regular),
+                                            ),
                                             Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
                                               children: [
-                                                Text('$temperature',
-                                                    style:
-                                                        blackTextStyle.copyWith(
-                                                            fontSize: 33,
-                                                            fontWeight: bold)),
-                                                const SizedBox(
-                                                  width: 5,
+                                                Image.asset(
+                                                  "assets/amonia.png",
+                                                  width: 65.0,
+                                                  height: 65.0,
+                                                  fit: BoxFit.fill,
                                                 ),
-                                                Text('C',
-                                                    style:
-                                                        blackTextStyle.copyWith(
-                                                            fontSize: 33,
-                                                            fontWeight: bold)),
-                                                const SizedBox(
-                                                  width: 80,
+                                                SizedBox(
+                                                    width:
+                                                        120), // Memberikan jarak antara gambar dan teks suhu
+                                                Text(
+                                                  '$temperature',
+                                                  style:
+                                                      blackTextStyle.copyWith(
+                                                    fontSize: 33,
+                                                    fontWeight: bold,
+                                                  ),
                                                 ),
-                                                // Image.asset(
-                                                //     'assets/iconamonia.png',
-                                                //     height: 60,
-                                                //     width: 60),
-                                                Container(
-                                                  height: 110,
-                                                  width: 110,
-                                                  child: 
-                                                    SfRadialGauge(
-                                                        axes: <RadialAxis>[
-                                                          RadialAxis(
-                                                              minimum: 0,
-                                                              maximum: 100,
-                                                              showLabels: false, 
-                                                              showAxisLine: true,
-                                                              showLastLabel: true,
-                                                              ranges: <GaugeRange>[
-                                                                GaugeRange(startValue: 0, endValue: 33, color: Colors.green),
-                                                                GaugeRange(startValue: 33, endValue: 66, color: Colors.orange),
-                                                                GaugeRange(startValue: 66, endValue: 100, color: Colors.red)
-                                                              ],
-                                                              pointers: <GaugePointer>[
-                                                                NeedlePointer(value: temperature)],
-                                                              annotations: <GaugeAnnotation>[
-                                                                GaugeAnnotation(
-                                                                    widget: Container(
-                                                                        child: Text(
-                                                                            '',
-                                                                            style: TextStyle(
-                                                                                fontSize:
-                                                                                    15,
-                                                                                fontWeight: FontWeight
-                                                                                    .w200))),
-                                                                    angle: 90,
-                                                                    positionFactor:
-                                                                        0.5)
-                                                              ])
-                                                        ])
-                                                  
-                                                )
+                                                SizedBox(width: 20),
+                                                Text(
+                                                  'ppm',
+                                                  style:
+                                                      blackTextStyle.copyWith(
+                                                    fontSize: 15,
+                                                    fontWeight: bold,
+                                                  ),
+                                                ),
                                               ],
                                             ),
                                           ],
@@ -353,23 +375,14 @@ class _DashboardPageState extends State<DashboardPage> {
                                       ],
                                     ),
                                     SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        const SizedBox(
-                                          width: 2,
-                                        ),
-                                        Text('Diperbarui $lastUpdated',
-                                            style: blackTextStyle.copyWith(
-                                                fontWeight: light, fontSize: 10)),
-                                      ],
-                                    )
                                   ],
                                 ),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
                             child: GridView.count(
                               crossAxisCount: 2,
                               crossAxisSpacing: 4,
@@ -377,29 +390,17 @@ class _DashboardPageState extends State<DashboardPage> {
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
                               children: [
-                                buildGasCard2(
+                                buildGasKelembapan(
                                   'Kelembapan',
                                   'HR',
-                                  humidity,
-                                  Color.fromRGBO(197, 237, 203, 1),
-                                ),
-                                buildGasCard4(
-                                  'Metana',
-                                  'CH4',
-                                  metana,
-                                  Color.fromRGBO(242, 207, 207, 1),
-                                ),
-                                buildGasCard(
-                                  'Amonia',
-                                  'NH3',
                                   amonia,
-                                  Color.fromRGBO(247, 215, 187, 1),
+                                  Color.fromRGBO(255, 255, 255, 1),
                                 ),
-                                buildGasCard3(
-                                  'Karbon\nDioksida',
-                                  'CO2',
+                                buildGasSuhu(
+                                  'Suhu',
+                                  'C',
                                   dioksida,
-                                  Color.fromRGBO(198, 225, 225, 1),
+                                  Color.fromRGBO(255, 255, 255, 1),
                                 ),
                               ],
                             ),
@@ -568,7 +569,7 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget buildGasCard(
+  Widget buildGasKelembapan(
       String title, String kode, double value, Color color) {
     return Card(
       elevation: 0.1,
@@ -584,60 +585,172 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             Row(
               children: [
-                Text(title,
-                    style: blackTextStyle.copyWith(fontWeight: regular)),
-                const SizedBox(
-                  width: 47,
+                Text(
+                  title,
+                  style: blackTextStyle.copyWith(fontWeight: FontWeight.w400),
                 ),
-                Text(kode, style: blackTextStyle.copyWith(fontWeight: bold)),
+                const SizedBox(width: 30),
+                Text(
+                  kode,
+                  style: blackTextStyle.copyWith(fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             SizedBox(height: 10),
             Container(
-                height: 75,
-                width: 70,
-                child: SfRadialGauge(axes: <RadialAxis>[
-                  RadialAxis(minimum: 0, maximum: 300, showLabels: false, showAxisLine: true,ranges: <GaugeRange>[
-                    GaugeRange(
-                        startValue: 0, endValue: 30, color: Colors.green),
-                    GaugeRange(
-                        startValue: 30, endValue: 150, color: Colors.orange),
-                    GaugeRange(startValue: 150, endValue: 300, color: Colors.red)
-                  ], pointers: <GaugePointer>[
-                    NeedlePointer(value: amonia)
-                  ], annotations: <GaugeAnnotation>[
-                    GaugeAnnotation(
-                        widget: Container(
-                            child: Text('',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w200))),
-                        angle: 90,
-                        positionFactor: 0.5)
-                  ])
-                ])),
-            SizedBox(height: 5),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 40,
-                ),
-                Text('$value',
-                    style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 16)),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text('ppm', style: blackTextStyle.copyWith(fontWeight: light, fontSize: 16)),
-              ],
-            )
+              height: 115,
+              width: 115,
+              child: SfRadialGauge(
+                axes: <RadialAxis>[
+                  RadialAxis(
+                    interval: 20,
+                    startAngle: 0,
+                    endAngle: 360,
+                    showTicks: false,
+                    showLabels: false,
+                    axisLineStyle: AxisLineStyle(thickness: 20),
+                    pointers: <GaugePointer>[
+                      RangePointer(
+                        value: value,
+                        width: 20,
+                        color: Color.fromARGB(237, 247, 177, 91),
+                        enableAnimation: true,
+                        cornerStyle: CornerStyle.bothCurve,
+                      ),
+                    ],
+                    annotations: <GaugeAnnotation>[
+                      GaugeAnnotation(
+                        widget: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${value.toStringAsFixed(1)}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Text(
+                                    '%',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        angle: 270,
+                        positionFactor: 0.2,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget buildGasCard2(
-      String title, String kode, double value, Color color) {
+  Widget buildGasSuhu(String title, String kode, double value, Color color) {
+    return Card(
+      elevation: 0.1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(color: color, width: 0.1),
+      ),
+      color: color,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  title,
+                  style: blackTextStyle.copyWith(fontWeight: FontWeight.w400),
+                ),
+                const SizedBox(width: 30),
+                Text(
+                  kode,
+                  style: blackTextStyle.copyWith(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Container(
+              height: 115,
+              width: 115,
+              child: SfRadialGauge(
+                axes: <RadialAxis>[
+                  RadialAxis(
+                    interval: 20,
+                    startAngle: 0,
+                    endAngle: 360,
+                    showTicks: false,
+                    showLabels: false,
+                    axisLineStyle: AxisLineStyle(thickness: 20),
+                    pointers: <GaugePointer>[
+                      RangePointer(
+                        value: value,
+                        width: 20,
+                        color: Color(0xFFFFCD60),
+                        enableAnimation: true,
+                        cornerStyle: CornerStyle.bothCurve,
+                      ),
+                    ],
+                    annotations: <GaugeAnnotation>[
+                      GaugeAnnotation(
+                        widget: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${value.toStringAsFixed(1)}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Text(
+                                    '°C',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        angle: 270,
+                        positionFactor: 0.2,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildGasCard2(String title, String kode, double value, Color color) {
     return Card(
       elevation: 0.1,
       shape: RoundedRectangleBorder(
@@ -665,91 +778,21 @@ class _DashboardPageState extends State<DashboardPage> {
                 height: 75,
                 width: 70,
                 child: SfRadialGauge(axes: <RadialAxis>[
-                  RadialAxis(minimum: 0, maximum: 100, showLabels: false, showAxisLine: true, ranges: <GaugeRange>[
-                    GaugeRange(
-                        startValue: 0, endValue: 33, color: Colors.green),
-                    GaugeRange(
-                        startValue: 33, endValue: 66, color: Colors.orange),
-                    GaugeRange(startValue: 66, endValue: 100, color: Colors.red)
-                  ], pointers: <GaugePointer>[
-                    NeedlePointer(value: humidity)
-                  ], annotations: <GaugeAnnotation>[
-                    GaugeAnnotation(
-                        widget: Container(
-                            child: Text('',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w200))),
-                        angle: 90,
-                        positionFactor: 0.5)
-                  ])
-                ])),
-            SizedBox(height: 5),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 44,
-                ),
-                Text('$value',
-                    style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 16)),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text('%', style: blackTextStyle.copyWith(fontWeight: light, fontSize: 16)),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildGasCard3(
-      String title, String kode, double value, Color color) {
-    return Card(
-      elevation: 0.1,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(color: color, width: 0.1),
-      ),
-      color: color,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(title,
-                    style: blackTextStyle.copyWith(fontWeight: regular)),
-                const SizedBox(
-                  width: 40,
-                ),
-                Text(kode, style: blackTextStyle.copyWith(fontWeight: bold)),
-              ],
-            ),
-            SizedBox(height: 0),
-           Container(
-                height: 75,
-                width: 70,
-                child: SfRadialGauge(axes: <RadialAxis>[
                   RadialAxis(
                       minimum: 0,
-                      maximum: 9000,
+                      maximum: 100,
                       showLabels: false,
                       showAxisLine: true,
                       ranges: <GaugeRange>[
                         GaugeRange(
-                            startValue: 0, endValue: 5000, color: Colors.green),
+                            startValue: 0, endValue: 33, color: Colors.green),
                         GaugeRange(
-                            startValue: 5000,
-                            endValue: 7000,
-                            color: Colors.orange),
+                            startValue: 33, endValue: 66, color: Colors.orange),
                         GaugeRange(
-                            startValue: 7000, endValue: 9000, color: Colors.red)
+                            startValue: 66, endValue: 100, color: Colors.red)
                       ],
                       pointers: <GaugePointer>[
-                        NeedlePointer(value: dioksida)
+                        NeedlePointer(value: humidity)
                       ],
                       annotations: <GaugeAnnotation>[
                         GaugeAnnotation(
@@ -762,18 +805,21 @@ class _DashboardPageState extends State<DashboardPage> {
                             positionFactor: 0.5)
                       ])
                 ])),
-            SizedBox(height: 0),
+            SizedBox(height: 5),
             Row(
               children: [
                 const SizedBox(
-                  width: 30,
+                  width: 44,
                 ),
                 Text('$value',
-                    style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 16)),
+                    style: blackTextStyle.copyWith(
+                        fontWeight: bold, fontSize: 16)),
                 const SizedBox(
                   width: 5,
                 ),
-                Text('ppm', style: blackTextStyle.copyWith(fontWeight: light, fontSize: 16)),
+                Text('%',
+                    style: blackTextStyle.copyWith(
+                        fontWeight: light, fontSize: 16)),
               ],
             )
           ],
@@ -782,8 +828,7 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget buildGasCard4(
-      String title, String kode, double value, Color color) {
+  Widget buildGasCard4(String title, String kode, double value, Color color) {
     return Card(
       elevation: 0.1,
       shape: RoundedRectangleBorder(
@@ -820,7 +865,9 @@ class _DashboardPageState extends State<DashboardPage> {
                         GaugeRange(
                             startValue: 0, endValue: 1000, color: Colors.green),
                         GaugeRange(
-                            startValue: 1000, endValue: 2000, color: Colors.orange),
+                            startValue: 1000,
+                            endValue: 2000,
+                            color: Colors.orange),
                         GaugeRange(
                             startValue: 2000, endValue: 3000, color: Colors.red)
                       ],
@@ -845,11 +892,14 @@ class _DashboardPageState extends State<DashboardPage> {
                   width: 30,
                 ),
                 Text('$value',
-                    style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 16)),
+                    style: blackTextStyle.copyWith(
+                        fontWeight: bold, fontSize: 16)),
                 const SizedBox(
                   width: 5,
                 ),
-                Text('ppm', style: blackTextStyle.copyWith(fontWeight: light, fontSize: 16)),
+                Text('ppm',
+                    style: blackTextStyle.copyWith(
+                        fontWeight: light, fontSize: 16)),
               ],
             )
           ],

@@ -21,6 +21,7 @@ class _DashboardPageState extends State<DashboardPage> {
   double metana = 0.0;
   double amonia = 0.0;
   String lastUpdated = '';
+  bool isLampOn = false;
 
   @override
   void initState() {
@@ -70,29 +71,21 @@ class _DashboardPageState extends State<DashboardPage> {
   // Initial Selected Value
   String dropdownvalue = '1';
 
-  // List of items in our dropdown menu
-  var items = [
-    '1',
-    '2',
-    '3',
-    '4',
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: greenColor,
+        backgroundColor: darkBrown,
         elevation: 0,
         toolbarHeight: 20,
       ),
-      body: Container(
-        color: whiteColor,
+      body: SingleChildScrollView(
         child: Column(
           children: [
+            // Header Section
             Container(
-              color: greenColor,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              color: Colors.redAccent,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -103,237 +96,120 @@ class _DashboardPageState extends State<DashboardPage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Selamat datang',
-                          style: whitekTextStyle.copyWith(fontWeight: light)),
-                      Text(
-                        'Admin',
-                        style: whitekTextStyle.copyWith(fontWeight: regular),
-                        textAlign: TextAlign.left,
-                      ),
+                      Text('Selamat Datang',
+                          style: TextStyle(color: Colors.white, fontSize: 12)),
+                      Text('Admin Itik',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16)),
                     ],
                   ),
-                  IconButton(
-                    icon: Image.asset('assets/button_settings.png'),
-                    iconSize: 52,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => settingsPage()));
-                    },
-                  ),
+                  // IconButton(
+                  //   icon: Icon(Icons.menu, color: Colors.white),
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) => SettingsPage()));
+                  //   },
+                  // ),
                 ],
               ),
             ),
-            Container(
-              color: greenColor,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Kualitas udara',
-                      style: whitekTextStyle.copyWith(fontWeight: bold)),
-                  Row(
+
+            // Status Lamp Section
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Card(
+                color: Colors.white,
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
                     children: [
-                      Text('Lokasi',
-                          style: whitekTextStyle.copyWith(fontWeight: bold)),
-                      SizedBox(width: 3),
-                      DropdownButton(
-                        value: dropdownvalue,
-                        dropdownColor: greenColor,
-                        style: whitekTextStyle,
-                        icon: Icon(Icons.keyboard_arrow_down,
-                            color: Colors.white),
-                        items: items.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownvalue = newValue!;
-                            print(dropdownvalue);
-                            fetchGasReadings();
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.all(20),
-                children: [
-                  Card(
-                    elevation: 3,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(color: greyColor, width: 1),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
                         children: [
-                          Row(
+                          const Icon(Icons.lightbulb_outline,
+                              size: 40, color: Colors.grey),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset('assets/iconamonia.png',
-                                  height: 40, width: 40),
-                              SizedBox(width: 14),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Suhu',
-                                      style: blackTextStyle.copyWith(
-                                          fontWeight: regular)),
-                                  Row(
-                                    children: [
-                                      Text('$temperature',
-                                          style: blackTextStyle.copyWith(
-                                              fontSize: 33, fontWeight: bold)),
-                                      Text('C',
-                                          style: blackTextStyle.copyWith(
-                                              fontSize: 14, fontWeight: light)),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                              Text("Status Lampu",
+                                  style: TextStyle(
+                                      color: Colors.redAccent,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
+                              Text(isLampOn ? "Nyala" : "Mati",
+                                  style: TextStyle(fontSize: 14)),
                             ],
                           ),
-                          SizedBox(height: 10),
-                          Text('Diperbarui $lastUpdated',
-                              style:
-                                  blackTextStyle.copyWith(fontWeight: light)),
+                          Spacer(),
+                          Switch(
+                            value: isLampOn,
+                            onChanged: (value) {
+                              setState(() {
+                                isLampOn = value;
+                              });
+                            },
+                          ),
                         ],
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Card(
-                          elevation: 0.2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: BorderSide(
-                                color: pinkColor.withOpacity(0.2), width: 1),
-                          ),
-                          color: pinkColor.withOpacity(0.2),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              children: [
-                                Image.asset('assets/iconamonia.png',
-                                    height: 40, width: 40),
-                                SizedBox(height: 14),
-                                Text('Metana',
-                                    style: blackTextStyle.copyWith(
-                                        fontWeight: regular)),
-                                Text('$metana',
-                                    style: blackTextStyle.copyWith(
-                                        fontWeight: bold)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: Card(
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: BorderSide(
-                                color: greenColor.withOpacity(0.25), width: 1),
-                          ),
-                          color: greenColor.withOpacity(0.25),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              children: [
-                                Image.asset('assets/iconamonia.png',
-                                    height: 40, width: 40),
-                                SizedBox(height: 14),
-                                Text('Amonia',
-                                    style: blackTextStyle.copyWith(
-                                        fontWeight: regular)),
-                                Text('$amonia',
-                                    style: blackTextStyle.copyWith(
-                                        fontWeight: bold)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      SizedBox(height: 5),
+                      Text("Diperbarui $lastUpdated",
+                          style: TextStyle(color: Colors.grey, fontSize: 12)),
                     ],
                   ),
-                  SizedBox(height: 20),
+                ),
+              ),
+            ),
+
+            // Gas and Sensor Data Section
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: [
+                  sensorCard("Gas Amonia", "$amonia ppm",
+                      "assets/iconamonia.png", Colors.orange),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        child: Card(
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: BorderSide(
-                                color: greenColor.withOpacity(0.25), width: 1),
-                          ),
-                          color: greenColor.withOpacity(0.25),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              children: [
-                                Image.asset('assets/iconamonia.png',
-                                    height: 40, width: 40),
-                                SizedBox(height: 14),
-                                Text('Dioksida',
-                                    style: blackTextStyle.copyWith(
-                                        fontWeight: regular)),
-                                Text('$dioksida',
-                                    style: blackTextStyle.copyWith(
-                                        fontWeight: bold)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                          child: sensorCard("Kelembapan", "$humidity%",
+                              "assets/iconamonia.png", Colors.blue)),
                       SizedBox(width: 10),
                       Expanded(
-                        child: Card(
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: BorderSide(
-                                color: blueColor.withOpacity(0.25), width: 1),
-                          ),
-                          color: blueColor.withOpacity(0.25),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              children: [
-                                Image.asset('assets/iconamonia.png',
-                                    height: 40, width: 40),
-                                SizedBox(height: 14),
-                                Text('Kelembapan',
-                                    style: blackTextStyle.copyWith(
-                                        fontWeight: regular)),
-                                Text('$humidity',
-                                    style: blackTextStyle.copyWith(
-                                        fontWeight: bold)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                          child: sensorCard("Suhu", "$temperature°C",
+                              "assets/iconamonia.png", Colors.red)),
                     ],
                   ),
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget sensorCard(String title, String value, String iconPath, Color color) {
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          children: [
+            Image.asset(iconPath, height: 40, color: color),
+            SizedBox(height: 10),
+            Text(title,
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+            SizedBox(height: 5),
+            Text(value,
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

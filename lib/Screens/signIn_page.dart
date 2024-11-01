@@ -17,16 +17,14 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  
 
   @override
   void initState() {
     super.initState();
-    
   }
 
   Future<void> toDashboard() async {
-   Navigator.push(
+    Navigator.push(
         context, MaterialPageRoute(builder: (context) => DashboardPage()));
   }
 
@@ -69,7 +67,6 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
   }
-  
 
   login() async {
     try {
@@ -78,7 +75,6 @@ class _SignInPageState extends State<SignInPage> {
         "password": passwordController.text,
       });
       if (res.statusCode == 200) {
-       
         String datauser = res.body;
         var hasiluser = jsonDecode(datauser);
         SharedPreferences sharedPreferences =
@@ -133,7 +129,7 @@ class _SignInPageState extends State<SignInPage> {
                 bottom: 50,
               ),
               decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/gmf.png'))),
+                  image: DecorationImage(image: AssetImage('assets/duck.png'))),
             ),
             Text('Halo',
                 textAlign: TextAlign.center,
@@ -216,7 +212,7 @@ class _SignInPageState extends State<SignInPage> {
                 },
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.zero,
-                  backgroundColor: greenColor,
+                  backgroundColor: Colors.brown,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14)),
                 ),

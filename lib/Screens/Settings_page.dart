@@ -24,10 +24,8 @@ class _settingsPageState extends State<settingsPage> {
   }
 
   toAbout() {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => aboutPage()),
-          (route) => false);
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => aboutPage()), (route) => false);
   }
 
   Future<void> sendLogout() async {
@@ -74,10 +72,10 @@ class _settingsPageState extends State<settingsPage> {
                     decoration: BoxDecoration(
                       border: Border.all(
                         width: 1,
-                        color: greenColor,
+                        color: darkBrown,
                       ),
                       borderRadius: BorderRadius.circular(10),
-                      color: greenColor,
+                      color: darkBrown,
                     ),
                     child: Column(
                       children: [

@@ -24,8 +24,10 @@ class _aboutPageState extends State<aboutPage> {
   }
 
   toAccount() {
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => settingsPage()), (route) => false);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => settingsPage()),
+        (route) => false);
   }
 
   Future<void> sendLogout() async {
@@ -131,7 +133,7 @@ class _aboutPageState extends State<aboutPage> {
                 child: Container(
                     width: double.infinity,
                     margin: EdgeInsets.all(10),
-                    height: 149,
+                    height: 165,
                     decoration: BoxDecoration(
                       border: Border.all(
                         width: 1,
@@ -143,16 +145,16 @@ class _aboutPageState extends State<aboutPage> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 4,
+                          height: 10,
                         ),
                         Container(
                           margin: EdgeInsets.all(10),
-                          child:  Text(
-                              'Gumukmas Multifarm (GMF) adalah perusahaan yang berfokus pada kemitraan domba dan penyediaan pakan ternak ruminansia berkualitas tinggi. Berlokasi di Jember, Jawa Timur, kami berkomitmen untuk mendukung peternak lokal menjadi go internasional. Hubungi kami dibawah ini!',
-                              style: blackTextStyle.copyWith(
-                                  fontSize: 13, fontWeight: regular),
-                              textAlign: TextAlign.justify,
-                            ),
+                          child: Text(
+                            'Gumukmas Multifarm (GMF) adalah perusahaan yang berfokus pada kemitraan domba dan penyediaan pakan ternak ruminansia berkualitas tinggi. Berlokasi di Jember, Jawa Timur, kami berkomitmen untuk mendukung peternak lokal menjadi go internasional. Hubungi kami dibawah ini!',
+                            style: blackTextStyle.copyWith(
+                                fontSize: 13, fontWeight: regular),
+                            textAlign: TextAlign.justify,
+                          ),
                         )
                         // Column(
                         //   children: [
@@ -191,9 +193,9 @@ class _aboutPageState extends State<aboutPage> {
                       height: 20,
                       width: 20,
                       decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/instagram.png')),
-                        ),
+                        image: DecorationImage(
+                            image: AssetImage('assets/instagram.png')),
+                      ),
                     ),
                     const SizedBox(
                       width: 15,
@@ -227,9 +229,9 @@ class _aboutPageState extends State<aboutPage> {
                       height: 20,
                       width: 20,
                       decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/facebook.png')),
-                        ),
+                        image: DecorationImage(
+                            image: AssetImage('assets/facebook.png')),
+                      ),
                     ),
                     const SizedBox(
                       width: 15,
@@ -279,41 +281,41 @@ class _aboutPageState extends State<aboutPage> {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  height: 40,
-                  width: 340,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                      color: greyColor.withOpacity(0.25),
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                    color: whiteColor,
+                margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                height: 40,
+                width: 340,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: greyColor.withOpacity(0.25),
                   ),
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        height: 20,
-                        width: 20,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/youtube.png')),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        'Gumukmas Multifarm',
-                        style: greyTextStyle.copyWith(
-                            fontSize: 11, fontWeight: light),
-                      ),
-                    ],
-                  ),
+                  borderRadius: BorderRadius.circular(10),
+                  color: whiteColor,
                 ),
+                child: Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      height: 20,
+                      width: 20,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/youtube.png')),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      'Gumukmas Multifarm',
+                      style: greyTextStyle.copyWith(
+                          fontSize: 11, fontWeight: light),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ));
